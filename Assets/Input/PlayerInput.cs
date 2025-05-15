@@ -147,6 +147,45 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Clicks"",
+            ""id"": ""a94cea7e-c79f-4894-9c4d-21d0eb21971e"",
+            ""actions"": [
+                {
+                    ""name"": ""Up"",
+                    ""type"": ""Button"",
+                    ""id"": ""ebd54f22-0837-476f-be9e-c06fead2980a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""69412952-4d3f-4b7d-a665-75664bc736fd"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d1ac345-2a61-419e-a695-be5bccddba6f"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -155,6 +194,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Walk = m_Movement.FindAction("Walk", throwIfNotFound: true);
         m_Movement_Up = m_Movement.FindAction("Up", throwIfNotFound: true);
+        // Clicks
+        m_Clicks = asset.FindActionMap("Clicks", throwIfNotFound: true);
+        m_Clicks_Up = m_Clicks.FindAction("Up", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -266,9 +308,59 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+
+    // Clicks
+    private readonly InputActionMap m_Clicks;
+    private List<IClicksActions> m_ClicksActionsCallbackInterfaces = new List<IClicksActions>();
+    private readonly InputAction m_Clicks_Up;
+    public struct ClicksActions
+    {
+        private @PlayerInput m_Wrapper;
+        public ClicksActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Up => m_Wrapper.m_Clicks_Up;
+        public InputActionMap Get() { return m_Wrapper.m_Clicks; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ClicksActions set) { return set.Get(); }
+        public void AddCallbacks(IClicksActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ClicksActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ClicksActionsCallbackInterfaces.Add(instance);
+            @Up.started += instance.OnUp;
+            @Up.performed += instance.OnUp;
+            @Up.canceled += instance.OnUp;
+        }
+
+        private void UnregisterCallbacks(IClicksActions instance)
+        {
+            @Up.started -= instance.OnUp;
+            @Up.performed -= instance.OnUp;
+            @Up.canceled -= instance.OnUp;
+        }
+
+        public void RemoveCallbacks(IClicksActions instance)
+        {
+            if (m_Wrapper.m_ClicksActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IClicksActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ClicksActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ClicksActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ClicksActions @Clicks => new ClicksActions(this);
     public interface IMovementActions
     {
         void OnWalk(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+    }
+    public interface IClicksActions
+    {
         void OnUp(InputAction.CallbackContext context);
     }
 }

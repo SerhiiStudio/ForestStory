@@ -30,7 +30,7 @@ public class InputMovement : MonoBehaviour
 		if (!isStoppedActiningTransform)
 		{
 			isWalking = walkInp >= 0.1f || walkInp <= -0.1f;
-			Debug.Log(isWalking);
+			//Debug.Log(isWalking);
 			Vector3 direction = new Vector3(walkInp, 0, 0) * Time.deltaTime;
 			transform.Translate(direction * speed);
 		}
@@ -64,20 +64,20 @@ public class InputMovement : MonoBehaviour
 
 	private void Awake()
 	{
-		input = new PlayerInput();
+		input = InputSistema.instance.input;
 	}
 
 	private void OnEnable()
 	{
-		input.Enable();
-
 		input.Movement.Walk.started += SpriteFlipper;
 		input.Movement.Walk.started += WalkAnim;
 		input.Movement.Walk.canceled += IdleAnim;
 	}
 	private void OnDisable()
 	{
-		input.Disable();
+		input.Movement.Walk.started -= SpriteFlipper;
+		input.Movement.Walk.started -= WalkAnim;
+		input.Movement.Walk.canceled -= IdleAnim;
 	}
 
 	private void SpriteFlipper(InputAction.CallbackContext context)
@@ -94,7 +94,7 @@ public class InputMovement : MonoBehaviour
 	}
 	private void IdleAnim(InputAction.CallbackContext context)
 	{
-		Debug.Log("If walking :" + isWalking);
+		//Debug.Log("If walking :" + isWalking);
 		if (!isStoppedActiningTransform && isWalking)
 		{
 			animator.Play(PeopleAnimationConstants.IdleAnimation);

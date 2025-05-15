@@ -125,6 +125,45 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Clicks",
+            "id": "a94cea7e-c79f-4894-9c4d-21d0eb21971e",
+            "actions": [
+                {
+                    "name": "Up",
+                    "type": "Button",
+                    "id": "ebd54f22-0837-476f-be9e-c06fead2980a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "69412952-4d3f-4b7d-a665-75664bc736fd",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d1ac345-2a61-419e-a695-be5bccddba6f",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
