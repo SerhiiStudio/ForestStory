@@ -19,6 +19,30 @@ MonoBehaviour:
     m_Key: Eat
     m_Metadata:
       m_Items: []
+  - m_Id: 324201532420096
+    m_Key: Diary First Day 1.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 325146488139776
+    m_Key: Diary First Day 1.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 335216076713984
+    m_Key: Diary First Day 1.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 335683116658688
+    m_Key: Diary First Day 1.4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 346425085718528
+    m_Key: Bed First Day 1.1 (if not read)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 346652391829504
+    m_Key: Bed First Day 1.2 (if read)
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
