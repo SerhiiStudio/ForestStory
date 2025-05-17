@@ -6,7 +6,7 @@ public class BaseButton : MonoBehaviour
 	[SerializeField] protected SpriteRenderer spriteRenderer;
 	[SerializeField] protected bool isActiveButton = true;
 
-	private void Awake()
+	private void OnEnable()
 	{
 		Debug.Log(EventSystem.Instance.gameObject.activeSelf);
 		EventSystem.Instance.IteractionTriggers += ShowButton;
@@ -39,6 +39,6 @@ public class BaseButton : MonoBehaviour
 	protected void ActivateButton(int id)
 	{
 		if (id == this.id && isActiveButton)
-		spriteRenderer.enabled = isActiveButton = false;
+			spriteRenderer.enabled = isActiveButton = false;
 	}
 }
