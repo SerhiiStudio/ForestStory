@@ -7,10 +7,6 @@ public class SimpleText : MonoBehaviour
 	[SerializeField] private int id;
 	[SerializeField] private GameObject trigger;
 	[SerializeField] private List<Text> text;
-	[SerializeField] private Text text1;
-	[SerializeField] private Text text2;
-	[SerializeField] private Text text3;
-	[SerializeField] private Text text4;
 	private int clicked;
 	[SerializeField] private int clickCount = 2;
 
