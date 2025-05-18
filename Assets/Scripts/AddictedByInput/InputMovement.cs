@@ -27,6 +27,9 @@ public class InputMovement : MonoBehaviour
 		float walkInp = input.Movement.Walk.ReadValue<float>();
 		float upInt = input.Movement.Up.ReadValue<float>();
 
+		var limit = WorldLimits.Instance.CurrentLimit;
+
+
 		if (!isStoppedActiningTransform)
 		{
 			isWalking = walkInp >= 0.1f || walkInp <= -0.1f;
@@ -35,17 +38,17 @@ public class InputMovement : MonoBehaviour
 			transform.Translate(direction * speed);
 		}
 
-		float difference1 = Mathf.Abs(transform.position.x - WorldLimits.Instance.left);
-		float difference2 = Mathf.Abs(transform.position.x - WorldLimits.Instance.right);
+		float difference1 = Mathf.Abs(transform.position.x -limit.left);
+		float difference2 = Mathf.Abs(transform.position.x - limit.right);
 		isCloserToLeft = difference1 < difference2;
-		if (isCloserToLeft && transform.position.x < WorldLimits.Instance.left)
+		if (isCloserToLeft && transform.position.x < limit.left)
 		{
-			transform.position = new Vector3(WorldLimits.Instance.left, transform.position.y);
+			transform.position = new Vector3(limit.left, transform.position.y);
 			animator.Play(PeopleAnimationConstants.IdleAnimation);
 		}
-		else if (!isCloserToLeft && transform.position.x > WorldLimits.Instance.right)
+		else if (!isCloserToLeft && transform.position.x > limit.right)
 		{
-			transform.position = new Vector3(WorldLimits.Instance.right, transform.position.y);
+			transform.position = new Vector3(limit.right, transform.position.y);
 			animator.Play(PeopleAnimationConstants.IdleAnimation);
 		}
 

@@ -7,13 +7,17 @@ public class EventSystem : MonoBehaviour
 
 	private void Awake()
 	{
-		Instance = this;
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(gameObject);
 	}
 
 	public event Action<int> IteractionTriggers;
 	public event Action<int> LeaveIteractionTriggers;
 	public event Action<int> Buttons;
-	public event Action<Days> DayTransition;
+	public event Action<Days> DayTransitionStarted;
+	public event Action<Days> DayTransitionFinished;
 
 
 	public void GetOnTrigger(int id)
@@ -29,8 +33,12 @@ public class EventSystem : MonoBehaviour
 	{
 		Buttons?.Invoke(id);
 	}
-	public void SwitchDays(Days day)
+	public void StartDayTransition(Days dayToTransitTo)
 	{
-
+		DayTransitionStarted?.Invoke(dayToTransitTo);
+	}
+	public void NotifyDayTransitionEnded(Days daySwitchedTo)
+	{
+		DayTransitionFinished?.Invoke(daySwitchedTo);
 	}
 }

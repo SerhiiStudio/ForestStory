@@ -1,16 +1,49 @@
 using UnityEngine;
 
 public class WorldLimits : MonoBehaviour
-{
-	public float left;
-	public float right;
+{ 
+	[SerializeField] private ListWorldLimits listWorldLimits;
+	private int currentLimitIndx;
 
+	public static WorldLimits Instance { get; private set; }
 
-
-	public static WorldLimits Instance;
+	public WLimits CurrentLimit => listWorldLimits[currentLimitIndx];
 
 	private void Awake()
 	{
-		Instance = this;
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(gameObject);
 	}
+
+
+	public void ChangeLimits(Days day)
+	{
+		currentLimitIndx = (int)day;
+
+		// while testing
+		Debug.Log(currentLimitIndx);
+		Debug.Log(listWorldLimits.Lenght);
+		Debug.Log("Day changed: " + day);
+		Debug.Log(listWorldLimits[currentLimitIndx].left);
+		Debug.Log(listWorldLimits[currentLimitIndx].right);
+	}
+
+
+	private void OnEnable()
+	{
+		EventSystem.Instance.DayTransitionFinished += ChangeLimits;
+	}
+
+	private void OnDisable()
+	{
+		EventSystem.Instance.DayTransitionFinished -= ChangeLimits;
+	}
+
+	private void Start()
+	{
+		EventSystem.Instance.NotifyDayTransitionEnded(Days.First); // while testing
+	}
+
 }

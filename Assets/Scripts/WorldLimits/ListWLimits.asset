@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8d6f30e3ef21a5429c2f6f00e734f4e, type: 3}
   m_Name: ListWLimits
   m_EditorClassIdentifier: 
-  list:
+  limitList:
   - left: -80.77
     right: -68.59
+  - left: -0.3699875
+    right: 11.81001
