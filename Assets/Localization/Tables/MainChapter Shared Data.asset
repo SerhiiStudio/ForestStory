@@ -43,6 +43,14 @@ MonoBehaviour:
     m_Key: Bed First Day 1.2 (if read)
     m_Metadata:
       m_Items: []
+  - m_Id: 758950063304704
+    m_Key: Fireplace day 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760725050814464
+    m_Key: Axe day 1
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

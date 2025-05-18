@@ -5,6 +5,7 @@ public class BaseButton : MonoBehaviour
 	[SerializeField] protected int id;
 	[SerializeField] protected SpriteRenderer spriteRenderer;
 	[SerializeField] protected bool isActiveButton = true;
+	[SerializeField] private bool isAlwaysActive = false;
 
 	private void OnEnable()
 	{
@@ -38,7 +39,7 @@ public class BaseButton : MonoBehaviour
 
 	protected void ActivateButton(int id)
 	{
-		if (id == this.id && isActiveButton)
+		if (id == this.id && isActiveButton && !isAlwaysActive)
 			spriteRenderer.enabled = isActiveButton = false;
 	}
 }

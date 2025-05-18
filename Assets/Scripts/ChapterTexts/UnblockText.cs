@@ -4,8 +4,9 @@ public class UnblockText : MonoBehaviour
 {
 	[SerializeField] private int id;
 	[SerializeField] private GameObject targetTrigger;
-	private int clicked;
+	[SerializeField] private GameObject trigge2Deactivate;
 	[SerializeField] private int clickCount = 2;
+	private int clicked;
 
 	private void Start()
 	{
@@ -23,6 +24,7 @@ public class UnblockText : MonoBehaviour
 			if (clicked == clickCount)
 			{
 				targetTrigger.SetActive(true);
+				trigge2Deactivate.SetActive(false);
 			}
 		}
 	}
