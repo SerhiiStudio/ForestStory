@@ -33,11 +33,11 @@ public class WorldLimits : MonoBehaviour
 
 	private void OnEnable()
 	{
-		EventSystem.Instance.DayTransitionFinished += ChangeLimits;
+		EventSystem.Instance.DayTransitionStarted += ChangeLimits;
 	}
 
 	private void OnDisable()
 	{
-		EventSystem.Instance.DayTransitionFinished -= ChangeLimits;
+		EventSystem.Instance.DayTransitionStarted -= ChangeLimits;
 	}
 }

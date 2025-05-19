@@ -75,12 +75,16 @@ public class InputMovement : MonoBehaviour
 		input.Movement.Walk.started += SpriteFlipper;
 		input.Movement.Walk.started += WalkAnim;
 		input.Movement.Walk.canceled += IdleAnim;
+
+		EventSystem.Instance.EnablePlayerMovement += EnableMovement;
 	}
 	private void OnDisable()
 	{
 		input.Movement.Walk.started -= SpriteFlipper;
 		input.Movement.Walk.started -= WalkAnim;
 		input.Movement.Walk.canceled -= IdleAnim;
+
+		EventSystem.Instance.EnablePlayerMovement -= EnableMovement;
 	}
 
 	private void SpriteFlipper(InputAction.CallbackContext context)
@@ -106,7 +110,7 @@ public class InputMovement : MonoBehaviour
 
 	private void EnableMovement(bool enable)
 	{
-		if (enable) 
+		if (!enable) 
 		{
 			isStoppedActiningTransform = true;
 		}
