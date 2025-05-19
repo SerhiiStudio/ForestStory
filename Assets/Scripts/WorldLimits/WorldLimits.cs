@@ -40,10 +40,4 @@ public class WorldLimits : MonoBehaviour
 	{
 		EventSystem.Instance.DayTransitionFinished -= ChangeLimits;
 	}
-
-	private void Start()
-	{
-		EventSystem.Instance.NotifyDayTransitionEnded(Days.First); // while testing
-	}
-
 }

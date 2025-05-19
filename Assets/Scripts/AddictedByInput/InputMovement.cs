@@ -103,4 +103,16 @@ public class InputMovement : MonoBehaviour
 			animator.Play(PeopleAnimationConstants.IdleAnimation);
 		}
 	}
+
+	private void EnableMovement(bool enable)
+	{
+		if (enable) 
+		{
+			isStoppedActiningTransform = true;
+		}
+		else
+		{
+			isStoppedActiningTransform = false;
+		}
+	}
 }
