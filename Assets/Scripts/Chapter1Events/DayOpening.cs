@@ -1,10 +1,10 @@
 using System.Collections;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class DayOpening : MonoBehaviour
 {
 	[SerializeField] private Transform lookAt;
+	[SerializeField] private Transform displacePlayerAt;
 	private Coroutine coroutine;
 	[SerializeField] private float timeVIdeoIsGoing = 2f; // while testing (change for some video player or animation)
 
@@ -22,7 +22,7 @@ public class DayOpening : MonoBehaviour
 	private void StartOpening(Days day)
 	{
 		if (coroutine == null)
-		coroutine = StartCoroutine(OpeningVid());
+			coroutine = StartCoroutine(OpeningVid());
 	}
 
 	private IEnumerator OpeningVid()
@@ -33,7 +33,8 @@ public class DayOpening : MonoBehaviour
 		yield return wait;
 
 		EventSystem.Instance.TurnCamera(lookAt);
-		
+		EventSystem.Instance.DisplacePlayer(displacePlayerAt);
+
 		coroutine = null;
 
 	}

@@ -23,6 +23,7 @@ public class EventSystem : MonoBehaviour
 	public event Action<Days> DayTransitionFinished;
 
 	public event Action<Transform> TurnCameraEvent;
+	public event Action<Transform> DisplacePlayerEvent;
 
 
 	public void GetOnTrigger(int id)
@@ -56,5 +57,9 @@ public class EventSystem : MonoBehaviour
 	public void TurnCamera(Transform transform)
 	{
 		TurnCameraEvent?.Invoke(transform);
+	}
+	public void DisplacePlayer(Transform transform)
+	{
+		DisplacePlayerEvent?.Invoke(transform);
 	}
 }

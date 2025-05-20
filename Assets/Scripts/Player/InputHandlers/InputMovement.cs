@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public class InputMovement : MonoBehaviour
 {
 
+	public static InputMovement Instance { get; private set; }
+
 	private PlayerInput input;
 	[SerializeField] private GameObject playerGO;
 	[SerializeField] private SpriteRenderer sprite;
@@ -68,6 +70,11 @@ public class InputMovement : MonoBehaviour
 	private void Awake()
 	{
 		input = InputSistema.instance.input;
+
+		if (Instance == null)
+			Instance = this;
+		else
+			Destroy(gameObject);
 	}
 
 	private void OnEnable()
