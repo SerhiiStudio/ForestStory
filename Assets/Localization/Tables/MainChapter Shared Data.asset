@@ -51,6 +51,22 @@ MonoBehaviour:
     m_Key: Axe day 1
     m_Metadata:
       m_Items: []
+  - m_Id: 1816950261739520
+    m_Key: Day 2 New day 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1817056226635776
+    m_Key: Day 2 New day 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1836058009202688
+    m_Key: Day 2 Bed 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1836127726923776
+    m_Key: Day 2 Bed 2 (r)
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
