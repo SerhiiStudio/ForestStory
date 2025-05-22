@@ -25,6 +25,8 @@ public class EventSystem : MonoBehaviour
 	public event Action<Transform> TurnCameraEvent;
 	public event Action<Transform> DisplacePlayerEvent;
 
+	public event Action<Action> TakeItemEvent;
+
 
 	public void GetOnTrigger(int id)
 	{
@@ -61,5 +63,10 @@ public class EventSystem : MonoBehaviour
 	public void DisplacePlayer(Transform transform)
 	{
 		DisplacePlayerEvent?.Invoke(transform);
+	}
+
+	public void TakeItem(Action method)
+	{
+		TakeItemEvent?.Invoke(method);
 	}
 }

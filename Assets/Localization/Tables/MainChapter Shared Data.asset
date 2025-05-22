@@ -67,6 +67,18 @@ MonoBehaviour:
     m_Key: Day 2 Bed 2 (r)
     m_Metadata:
       m_Items: []
+  - m_Id: 2440341578641408
+    m_Key: Day 2 Axe 1 (u)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2440501398401024
+    m_Key: Day 2 Axe 2 (r)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2446502424014848
+    m_Key: Day 2 Fireplace
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
