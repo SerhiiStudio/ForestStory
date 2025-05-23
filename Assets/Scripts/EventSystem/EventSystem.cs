@@ -28,6 +28,8 @@ public class EventSystem : MonoBehaviour
 	public event Action<int> TakeItemEvent;
 	public event Action<Sprite> TakeItemToInventoryEvent;
 
+	public event Action<int> PlayMusicEvent;
+
 
 	public void GetOnTrigger(int id)
 	{
