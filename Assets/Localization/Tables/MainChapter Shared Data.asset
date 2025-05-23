@@ -79,6 +79,22 @@ MonoBehaviour:
     m_Key: Day 2 Fireplace
     m_Metadata:
       m_Items: []
+  - m_Id: 2481007234969600
+    m_Key: Day 2 Apple take
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2529911234162688
+    m_Key: Day 2 Diary 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2530025210179584
+    m_Key: Day 2 Diary 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2530105975697408
+    m_Key: Day 2 Diary 3
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
