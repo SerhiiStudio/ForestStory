@@ -3,25 +3,30 @@ using UnityEngine;
 
 public class BaseAudioSystem : MonoBehaviour
 {
+	[Header("Type")]
+	[SerializeField] AudioType audioType;
 	[Header("One source")]
-	[SerializeField] private AudioSource audioSource;
+	[SerializeField] protected AudioSource audioSource;
 	[Header("Audio system clips")]
-	[SerializeField] private List<AudioClip> clips;
+	[SerializeField] protected List<AudioClip> clips;
 
 	private void OnEnable()
 	{
-		// subscribe for play
+		EventSystem.Instance.PlayAudioEvent += Activate;
 	}
 
 	private void OnDisable()
 	{
-		// unsubscribe
+		EventSystem.Instance.PlayAudioEvent -= Activate;
 	}
 
-	private void Activate(int id)
+	private void Activate(AudioType audioType, int id)
 	{
-		SwapClip(id);
-		PlayClip();
+		if (audioType == this.audioType)
+		{
+			SwapClip(id);
+			PlayClip();
+		}
 	}
 
 	private void SwapClip(int id)

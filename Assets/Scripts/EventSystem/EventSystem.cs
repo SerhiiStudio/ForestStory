@@ -28,7 +28,7 @@ public class EventSystem : MonoBehaviour
 	public event Action<int> TakeItemEvent;
 	public event Action<Sprite> TakeItemToInventoryEvent;
 
-	public event Action<int> PlayMusicEvent;
+	public event Action<AudioType, int> PlayAudioEvent;
 
 
 	public void GetOnTrigger(int id)
@@ -75,5 +75,10 @@ public class EventSystem : MonoBehaviour
 	public void TakeItemToInventory(Sprite sprite)
 	{
 		TakeItemToInventoryEvent?.Invoke(sprite);
+	}
+
+	public void PlayAudio(AudioType audioType, int id)
+	{
+		PlayAudioEvent?.Invoke(audioType, id);
 	}
 }

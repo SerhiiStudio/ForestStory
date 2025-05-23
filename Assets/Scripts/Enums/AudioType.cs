@@ -1,6 +1,6 @@
 public enum AudioType
 {
-	All = -1,
+	Other = -1,
 	Event,
 	Enviroment,
 	Player,
