@@ -4,15 +4,5 @@ using UnityEngine;
 
 public class UnblockGO : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	// logic to unblock some GO using id-driven event-system
 }

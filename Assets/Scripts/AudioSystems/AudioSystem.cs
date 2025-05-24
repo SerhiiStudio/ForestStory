@@ -7,8 +7,8 @@ public class BaseAudioSystem : MonoBehaviour
 	[SerializeField] AudioType audioType;
 	[Header("One source")]
 	[SerializeField] protected AudioSource audioSource;
-	[Header("Audio system clips")]
-	[SerializeField] protected List<AudioClip> clips;
+
+
 
 	private void OnEnable()
 	{
@@ -20,21 +20,20 @@ public class BaseAudioSystem : MonoBehaviour
 		EventSystem.Instance.PlayAudioEvent -= Activate;
 	}
 
-	private void Activate(AudioType audioType, int id)
+	private void Activate(AudioClipAsset audioClip)
 	{
-		if (audioType == this.audioType)
+		if (audioClip.type == this.audioType)
 		{
-			SwapClip(id);
+			SetClip(audioClip.clip);
 			PlayClip();
 		}
-	}
-
-	private void SwapClip(int id)
-	{
-		audioSource.clip = clips[id];
 	}
 	private void PlayClip()
 	{
 		audioSource.Play();
+	}
+	private void SetClip(AudioClip clip)
+	{
+		audioSource.clip = clip;
 	}
 }
