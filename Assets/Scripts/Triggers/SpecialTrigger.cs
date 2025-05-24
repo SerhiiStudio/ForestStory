@@ -1,11 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class SpecialTrigger : MonoBehaviour, IEnviromentEvent
 {
+	[Header("Audio clip")]
+	[SerializeField] private AudioClipAsset clip;
 
-	[SerializeField] private AudioType audioType;
-	[SerializeField] private int clipId;
+	[Header("Methods to activate on trigger")]
+	[SerializeField] private UnityEvent uEvent;
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
@@ -13,6 +17,11 @@ public class SpecialTrigger : MonoBehaviour, IEnviromentEvent
 	}
 	public void Activate()
 	{
-		EventSystem.Instance.PlayAudio(audioType, clipId);
+		uEvent?.Invoke();
+	}
+
+	public void PlayMusic()
+	{
+		EventSystem.Instance.PlayAudio(clip);
 	}
 }

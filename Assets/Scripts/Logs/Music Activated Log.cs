@@ -11,12 +11,8 @@ public class MusicActivatedLog : MonoBehaviour
 		EventSystem.Instance.PlayAudioEvent -= Log;
 	}
 
-	private void Log(AudioType type, int id)
+	private void Log(AudioClipAsset audioClip)
 	{
-		Debug.Log(
-			$"Music activated" +
-			$"Audio type: {type}" +
-			$"Index: {id}"
-			);
+		Debug.Log(audioClip.ToString());
 	}
 }
