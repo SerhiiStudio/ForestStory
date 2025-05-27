@@ -13,12 +13,7 @@ public class GenerateShadowMakerButton : Editor
 		if (GUILayout.Button("Generate ShadowCaster"))
 		{
 			var targetScript = (SanctumCorp.DynamicShadowCaster2DMaker)target;
-			targetScript.DoShasow();
-		}
-		if (GUILayout.Button("Update shadow"))
-		{
-			var targetScript = (SanctumCorp.DynamicShadowCaster2DMaker)target;
-			targetScript.RefreshShadowCaster();
+			targetScript.GenerateShadows();
 		}
 	}
 }
