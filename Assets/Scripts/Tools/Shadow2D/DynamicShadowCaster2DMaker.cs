@@ -27,7 +27,7 @@ namespace SanctumCorp
 			{
 				foreach (var sprite in sprites)
 				{
-					var gameObj = InstantiateGo();
+					var gameObj = InstantiateGo(sprite);
 					DoShasow(sprite, gameObj);
 					RefreshShadowCaster(gameObj);
 				}
@@ -104,11 +104,10 @@ namespace SanctumCorp
 
 				if (targetFolderName == "" || targetFolderName == " ") // Protect from empty string or space-misclick
 				{
-					Debug.LogError("Target folder name isn't filled");
+					Debug.LogError("Target folder name wasn't filled");
 					return;
 				}
-				InstantiateGo();
-				SaveToFolder.Save(baseFolderPath, targetFolderName, "");
+				SaveToFolder.Save(baseFolderPath, targetFolderName, madeGameObjects);
 			}
 			else
 			{
@@ -116,10 +115,12 @@ namespace SanctumCorp
 			}
 		}
 
-		private GameObject InstantiateGo()
+		private GameObject InstantiateGo(UnityEngine.Object obj)
 		{
-			GameObject go = new GameObject("Name"); // While testing
-			Undo.RegisterCreatedObjectUndo(go, $"created {name}");
+			string goName = "Shadow_" + obj.name;
+
+			GameObject go = new GameObject(goName);
+			Undo.RegisterCreatedObjectUndo(go, $"created {goName}");
 			Debug.Log("transform " + (transform != null));
 			Debug.Log("gameobj " + (go != null));
 			Undo.SetTransformParent(go.transform, transform, "Reparent");
@@ -134,7 +135,7 @@ namespace SanctumCorp
 			return go;
 		}
 
-		[ContextMenu("Clear gos")]
+		[ContextMenu("Clear shadows")]
 		private void CLearMadeGameobjects()
 		{
 			foreach (GameObject go in madeGameObjects)
