@@ -15,11 +15,21 @@ namespace SanctumCorp
 
 			base.OnInspectorGUI();
 
+			EditorGUILayout.Space(20);
+			EditorGUILayout.LabelField("Shadow Generator Tool", EditorStyles.boldLabel);
+
 			if (GUILayout.Button("Generate ShadowCaster"))
 			{
 				var targetScript = (ShadowCaster2DMaker)target;
 				targetScript.GenerateShadows();
 			}
+			if (GUILayout.Button("Clear instantiated game objects")) 
+			{
+				var targetScript = (ShadowCaster2DMaker)target;
+				targetScript.ClearMadeGameObjects();
+			}
+
+			EditorGUILayout.HelpBox("You should clear game objects only if \"doNotSaveToFolder\" is enabled", MessageType.Info);
 
 			Advanced();
 
@@ -33,7 +43,7 @@ namespace SanctumCorp
 			if (showAdvanced)
 			{
 				EditorGUI.indentLevel++;
-				EditorGUILayout.PropertyField(serializedObject.FindProperty("saveToFolder"));
+				EditorGUILayout.PropertyField(serializedObject.FindProperty("doNotSaveToFolder"));
 				// TODO: Add other advanced options here if needed.
 				EditorGUI.indentLevel--;
 			}

@@ -8,7 +8,7 @@ namespace SanctumCorp
 	{
 		private const string PREFAB = ".prefab";
 
-		public static void SavePrefabsToSubfolder(string path, string folderName, List<GameObject> gameObjects)
+		private static void SavePrefabsToSubfolder(string path, string folderName, List<GameObject> gameObjects)
 		{
 			if (
 				!string.IsNullOrEmpty(path) &&
@@ -31,7 +31,12 @@ namespace SanctumCorp
 			}
 		}
 
-
+		/// <summary>
+		/// Saves a GameObject as .prefab to folder
+		/// </summary>
+		/// <param name="folder"></param>
+		/// <param name="targetFolderName"></param>
+		/// <param name="objects"></param>
 		public static void Save(DefaultAsset folder, string targetFolderName, List<GameObject> objects)
 		{
 			string baseFolderPath = AssetDatabase.GetAssetPath(folder);

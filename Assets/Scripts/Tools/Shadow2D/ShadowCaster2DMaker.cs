@@ -21,8 +21,11 @@ namespace SanctumCorp
 
 		private List<GameObject> madeGameObjects;
 
-		[SerializeField][HideInInspector] private bool saveToFolder;
+		[SerializeField][HideInInspector] private bool doNotSaveToFolder;
 
+		/// <summary>
+		/// Main method to generate shadows
+		/// </summary>
 		public void GenerateShadows()
 		{
 			if (madeGameObjects == null)
@@ -35,8 +38,11 @@ namespace SanctumCorp
 				RefreshShadowCaster(gameObj);
 			}
 
-			SaveAsGameObject(folder, targetFolderName, madeGameObjects);
-			ClearMadeGameObjects();
+			if (!doNotSaveToFolder)
+			{
+				SaveAsGameObject(folder, targetFolderName, madeGameObjects);
+				ClearMadeGameObjects();
+			}
 
 		}
 
@@ -124,8 +130,9 @@ namespace SanctumCorp
 			return go;
 		}
 
-		private void ClearMadeGameObjects()
+		public void ClearMadeGameObjects()
 		{
+			if (madeGameObjects != null)
 			foreach (GameObject go in madeGameObjects)
 				if (go != null)
 					Undo.DestroyObjectImmediate(go);

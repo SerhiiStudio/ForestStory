@@ -5,6 +5,13 @@ namespace SanctumCorp
 {
 	public static class MakePoints
 	{
+
+		/// <summary>
+		/// Gets an array of local points describing the contour of a sprite.
+		/// </summary>
+		/// <param name="sprite">Sprite to get the contour from.</param>
+		/// <param name="targetTransform">Transform in coordinates to return contour in.</param>
+		/// <returns>An array in points of the local coordinates of the sprite.</returns>
 		public static Vector3[] GetPoints(Sprite sprite, Transform targetTransform)
 		{
 			if (sprite == null) return null;
@@ -23,7 +30,7 @@ namespace SanctumCorp
 			return worldCoordinatePoints.ToArray();
 		}
 
-
+		// Gets a sprite and returns its pixel array
 		private static Color[] GetPixels(Sprite sprite, out int width, out int height)
 		{
 			Texture2D texture = sprite.texture;
@@ -43,6 +50,7 @@ namespace SanctumCorp
 			return rectPixels;
 		}
 
+		// Gets pixel array and returns 2-dimension bool array of the alpha channel
 		private static bool[,] GetAlphaMask(Color[] pixels, int width, int height, float alphaTreshold = 0.1f)
 		{
 			bool[,] alphaMask = new bool[width, height];
@@ -52,7 +60,7 @@ namespace SanctumCorp
 				for (int x = 0; x < width; x++)
 				{
 					Color pixel = pixels[y * width + x];
-					alphaMask[x, y] = pixel.a > alphaTreshold;
+					alphaMask[x, y] = pixel.a > alphaTreshold; // If alpha greater than the treshold
 				}
 			}
 
@@ -61,6 +69,7 @@ namespace SanctumCorp
 			return alphaMask;
 		}
 
+		// Gets contour mask and returns coordinates from it 
 		private static List<Vector2Int> ExtractContourPoints(bool[,] contourMask, int width, int height)
 		{
 			var directions = new Vector2Int[]
@@ -130,6 +139,7 @@ namespace SanctumCorp
 			return contour;
 		}
 
+		// Simplifies coordinates
 		private static List<Vector2Int> SimplifyPoints(List<Vector2Int> input)
 		{
 			if (input.Count < 3) return new List<Vector2Int>(input);
@@ -154,6 +164,7 @@ namespace SanctumCorp
 			return result;
 		}
 
+		// Converts to local points with pixels per unit
 		private static List<Vector3> ConvertToLocalPoints(List<Vector2Int> pixelPoints, Vector2 pivot, Transform transform, float ppu)
 		{
 			List<Vector3> localPoints = new List<Vector3>();
@@ -196,6 +207,7 @@ namespace SanctumCorp
 			return points;
 		}
 
+		// Returns true if the pixel can be a point of the contour
 		private static bool IsContourPixel(bool[,] mask, int x, int y, int width, int height)
 		{
 			if (!mask[x, y]) return false;
@@ -208,6 +220,7 @@ namespace SanctumCorp
 			return false;
 		}
 
+		// Gets an alpha mask and returns 2-d array of the contours
 		private static bool[,] ExtractContourMask(bool[,] alphaMask, int width, int height)
 		{
 			bool[,] contourMask = new bool[width, height];
