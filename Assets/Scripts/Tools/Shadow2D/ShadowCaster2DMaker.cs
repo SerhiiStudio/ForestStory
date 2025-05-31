@@ -12,7 +12,7 @@ using UnityEditor;
 
 namespace SanctumCorp
 {
-	public class DynamicShadowCaster2DMaker : MonoBehaviour
+	public class ShadowCaster2DMaker : MonoBehaviour
 	{
 #if UNITY_EDITOR
 		[SerializeField] private Sprite[] sprites;
@@ -21,22 +21,28 @@ namespace SanctumCorp
 
 		private List<GameObject> madeGameObjects;
 
+		[SerializeField][HideInInspector] private bool saveToFolder;
+
 		public void GenerateShadows()
 		{
-			EditorApplication.delayCall += () =>
+			if (madeGameObjects == null)
+				madeGameObjects = new List<GameObject>();
+
+			foreach (var sprite in sprites)
 			{
-				foreach (var sprite in sprites)
-				{
-					var gameObj = InstantiateGo(sprite);
-					DoShasow(sprite, gameObj);
-					RefreshShadowCaster(gameObj);
-				}
-			};
+				var gameObj = InstantiateGo(sprite);
+				DoShadow(sprite, gameObj);
+				RefreshShadowCaster(gameObj);
+			}
+
+			SaveAsGameObject(folder, targetFolderName, madeGameObjects);
+			ClearMadeGameObjects();
+
 		}
 
 
 
-		public void DoShasow(Sprite sprite, GameObject gameObj)
+		private void DoShadow(Sprite sprite, GameObject gameObj)
 		{
 			var caster = gameObj.GetComponent<ShadowCaster2D>();
 			if (caster == null)
@@ -54,7 +60,7 @@ namespace SanctumCorp
 			}
 		}
 
-		public void RefreshShadowCaster(GameObject gameObj)
+		private void RefreshShadowCaster(GameObject gameObj)
 		{
 			var caster = gameObj.GetComponent<ShadowCaster2D>();
 			if (caster == null)
@@ -94,26 +100,11 @@ namespace SanctumCorp
 		}
 
 
-		[ContextMenu("Save to folder")]
-		public void SaveAsGameObject()
+		private void SaveAsGameObject(DefaultAsset folder, string targetFolderName, List<GameObject> objects)
 		{
-			string baseFolderPath = AssetDatabase.GetAssetPath(folder);
-			if (AssetDatabase.IsValidFolder(baseFolderPath))
-			{
-				Debug.Log("Destination folder is valid");
-
-				if (targetFolderName == "" || targetFolderName == " ") // Protect from empty string or space-misclick
-				{
-					Debug.LogError("Target folder name wasn't filled");
-					return;
-				}
-				SaveToFolder.Save(baseFolderPath, targetFolderName, madeGameObjects);
-			}
-			else
-			{
-				Debug.LogError("Folder is invalid");
-			}
+			SaveToFolder.Save(folder, targetFolderName, objects);
 		}
+
 
 		private GameObject InstantiateGo(UnityEngine.Object obj)
 		{
@@ -121,8 +112,6 @@ namespace SanctumCorp
 
 			GameObject go = new GameObject(goName);
 			Undo.RegisterCreatedObjectUndo(go, $"created {goName}");
-			Debug.Log("transform " + (transform != null));
-			Debug.Log("gameobj " + (go != null));
 			Undo.SetTransformParent(go.transform, transform, "Reparent");
 
 			Undo.RecordObject(go, "Clear position");
@@ -135,8 +124,7 @@ namespace SanctumCorp
 			return go;
 		}
 
-		[ContextMenu("Clear shadows")]
-		private void CLearMadeGameobjects()
+		private void ClearMadeGameObjects()
 		{
 			foreach (GameObject go in madeGameObjects)
 				if (go != null)

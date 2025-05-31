@@ -14,17 +14,17 @@ namespace SanctumCorp
 			bool[,] contourMask = ExtractContourMask(alphaMask, width, height);
 			var contourPoints = ExtractContourPoints(contourMask, width, height);
 			var simplifiedPoints = SimplifyPoints(contourPoints);
-			var worldCoordinatePoints = ConvertToWorldPoints(simplifiedPoints, sprite.pivot, targetTransform, sprite.pixelsPerUnit);
+			var worldCoordinatePoints = ConvertToLocalPoints(simplifiedPoints, sprite.pivot, targetTransform, sprite.pixelsPerUnit);
 
 			
 
-			GetCoordinates(contourMask, width, height, sprite.pivot, targetTransform, sprite.pixelsPerUnit);
+			// DebugCoordinates(contourMask, width, height, sprite.pivot, targetTransform, sprite.pixelsPerUnit);
 			
 			return worldCoordinatePoints.ToArray();
 		}
 
 
-		public static Color[] GetPixels(Sprite sprite, out int width, out int height)
+		private static Color[] GetPixels(Sprite sprite, out int width, out int height)
 		{
 			Texture2D texture = sprite.texture;
 			Rect rect = sprite.rect;
@@ -43,7 +43,7 @@ namespace SanctumCorp
 			return rectPixels;
 		}
 
-		public static bool[,] GetAlphaMask(Color[] pixels, int width, int height, float alphaTreshold = 0.1f)
+		private static bool[,] GetAlphaMask(Color[] pixels, int width, int height, float alphaTreshold = 0.1f)
 		{
 			bool[,] alphaMask = new bool[width, height];
 
@@ -56,7 +56,7 @@ namespace SanctumCorp
 				}
 			}
 
-			Debug.LogError(alphaMask.Length);
+			Debug.Log("Alpha mask created. Length: " + alphaMask.Length);
 
 			return alphaMask;
 		}
@@ -154,22 +154,22 @@ namespace SanctumCorp
 			return result;
 		}
 
-		private static List<Vector3> ConvertToWorldPoints(List<Vector2Int> pixelPoints, Vector2 pivot, Transform transform, float ppu)
+		private static List<Vector3> ConvertToLocalPoints(List<Vector2Int> pixelPoints, Vector2 pivot, Transform transform, float ppu)
 		{
-			List<Vector3> worldPoints = new List<Vector3>();
+			List<Vector3> localPoints = new List<Vector3>();
 
 			foreach (var p in pixelPoints)
 			{
 				float localX = (p.x - pivot.x) / ppu;
 				float localY = (p.y - pivot.y) / ppu;
 				Vector3 localPos = new Vector3(localX, localY);
-				worldPoints.Add(localPos);
+				localPoints.Add(localPos);
 			}
 
-			return worldPoints;
+			return localPoints;
 		}
 
-		public static Vector3[,] GetCoordinates(bool[,] alphaMask, int width, int height, Vector2 pivot, Transform targetTransform, float pixelsPerUnit)
+		private static Vector3[,] DebugCoordinates(bool[,] alphaMask, int width, int height, Vector2 pivot, Transform targetTransform, float pixelsPerUnit)
 		{
 			Vector3[,] points = new Vector3[width, height];
 
@@ -208,7 +208,7 @@ namespace SanctumCorp
 			return false;
 		}
 
-		public static bool[,] ExtractContourMask(bool[,] alphaMask, int width, int height)
+		private static bool[,] ExtractContourMask(bool[,] alphaMask, int width, int height)
 		{
 			bool[,] contourMask = new bool[width, height];
 

@@ -16,7 +16,7 @@ namespace SanctumCorp
 				if (casterFieldInfo == null) { return; }
 
 				path = casterFieldInfo.GetValue(shadowCaster) as Vector3[];
-				if (path == null || path.Length < 2) { return; };
+				if (path == null || path.Length < 2) { return; }
 
 				Gizmos.color = Color.grey;
 
@@ -28,9 +28,9 @@ namespace SanctumCorp
 		{
 			for (int i = 0; i < path.Length; i++)
 			{
-				Vector3 currentLine = shadowCaster.transform.TransformPoint(path[i]);
-				Vector3 nextLine = shadowCaster.transform.TransformPoint(path[(i + 1) % path.Length]);
-				Gizmos.DrawLine(currentLine, nextLine);
+				Vector3 currentPoint = shadowCaster.transform.TransformPoint(path[i]);
+				Vector3 nextPoint = shadowCaster.transform.TransformPoint(path[(i + 1) % path.Length]);
+				Gizmos.DrawLine(currentPoint, nextPoint);
 			}
 		}
 	}
