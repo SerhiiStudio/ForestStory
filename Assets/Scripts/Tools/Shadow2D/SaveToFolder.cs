@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace SanctumCorp
+namespace SerhiiStudio
 {
 	public static class SaveToFolder
 	{

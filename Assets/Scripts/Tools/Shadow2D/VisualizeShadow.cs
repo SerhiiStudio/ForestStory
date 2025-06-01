@@ -2,7 +2,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-namespace SanctumCorp
+namespace SerhiiStudio
 {
 	public class VisualizeShadow : MonoBehaviour
 	{

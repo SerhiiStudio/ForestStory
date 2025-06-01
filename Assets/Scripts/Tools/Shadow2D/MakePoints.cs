@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SanctumCorp
+namespace SerhiiStudio
 {
 	public static class MakePoints
 	{
@@ -180,6 +180,7 @@ namespace SanctumCorp
 			return localPoints;
 		}
 
+		// Draw points from the contour
 		private static Vector3[,] DebugCoordinates(bool[,] alphaMask, int width, int height, Vector2 pivot, Transform targetTransform, float pixelsPerUnit)
 		{
 			Vector3[,] points = new Vector3[width, height];

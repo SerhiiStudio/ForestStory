@@ -2,10 +2,10 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace SanctumCorp
+namespace SerhiiStudio
 {
 	[CustomEditor(typeof(ShadowCaster2DMaker))]
-	public class GenerateShadowMakerButton : Editor
+	public class ShadowCasterMakerCustomEditor : Editor
 	{
 		private bool showAdvanced = false;
 
@@ -28,13 +28,13 @@ namespace SanctumCorp
 				var targetScript = (ShadowCaster2DMaker)target;
 				targetScript.ClearMadeGameObjects();
 			}
-
 			EditorGUILayout.HelpBox("You should clear game objects only if \"doNotSaveToFolder\" is enabled", MessageType.Info);
 
 			Advanced();
 
 			serializedObject.ApplyModifiedProperties();
 		}
+
 
 		private void Advanced()
 		{
