@@ -28,8 +28,8 @@ namespace SerhiiStudio
 		/// </summary>
 		public void GenerateShadows()
 		{
-			if (madeGameObjects == null)
-				madeGameObjects = new List<GameObject>();
+			if (madeGameObjects == null || !doNotSaveToFolder)
+			madeGameObjects = new List<GameObject>(); // If some unsaved objects are still on the scene but we should not save them. There will be no option to clear previous gameobjects using ClearMadeGameObjects
 
 			foreach (var sprite in sprites)
 			{
@@ -138,9 +138,9 @@ namespace SerhiiStudio
 		public void ClearMadeGameObjects()
 		{
 			if (madeGameObjects != null)
-			foreach (GameObject go in madeGameObjects)
-				if (go != null)
-					Undo.DestroyObjectImmediate(go);
+				foreach (GameObject go in madeGameObjects)
+					if (go != null)
+						Undo.DestroyObjectImmediate(go);
 			madeGameObjects.Clear();
 		}
 #endif
