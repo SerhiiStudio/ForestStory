@@ -85,7 +85,7 @@ A Gizmos component for displaying the shadow contour in the editor.
 A helper static class for saving shadows as prefabs.
 
 #### Fields:
-- `string PREFAB` - The string `".prefab"` used to construct the path before saving.
+- `const string PREFAB_EXTENSION` - The string `".prefab"` used to construct the path before saving.
 
 #### Features:
 - Determines the save path.

@@ -1,3 +1,6 @@
+// Copyright(c) 2025 SerhiiStudio
+// See LICENSE file for details
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,10 +26,10 @@ namespace SerhiiStudio
 			var simplifiedPoints = SimplifyPoints(contourPoints);
 			var worldCoordinatePoints = ConvertToLocalPoints(simplifiedPoints, sprite.pivot, targetTransform, sprite.pixelsPerUnit);
 
-			
+
 
 			// DebugCoordinates(contourMask, width, height, sprite.pivot, targetTransform, sprite.pixelsPerUnit);
-			
+
 			return worldCoordinatePoints.ToArray();
 		}
 
@@ -176,7 +179,6 @@ namespace SerhiiStudio
 				Vector3 localPos = new Vector3(localX, localY);
 				localPoints.Add(localPos);
 			}
-
 			return localPoints;
 		}
 
@@ -187,7 +189,7 @@ namespace SerhiiStudio
 
 			for (int y = 0; y < height; y++)
 			{
-				for(int x = 0; x < width; x++)
+				for (int x = 0; x < width; x++)
 				{
 					if (alphaMask[x, y])
 					{
@@ -204,7 +206,6 @@ namespace SerhiiStudio
 					}
 				}
 			}
-
 			return points;
 		}
 
@@ -233,10 +234,7 @@ namespace SerhiiStudio
 					contourMask[x, y] = IsContourPixel(alphaMask, x, y, width, height);
 				}
 			}
-
 			return contourMask;
 		}
-
-
 	}
 }

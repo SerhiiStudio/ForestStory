@@ -1,4 +1,9 @@
+// Copyright(c) 2025 SerhiiStudio
+// See LICENSE file for details
+
+using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,35 +11,46 @@ namespace SerhiiStudio
 {
 	public static class SaveToFolder
 	{
-		private const string PREFAB = ".prefab";
+		private const string PREFAB_EXTENSION = ".prefab";
 
 		private static void SavePrefabsToSubfolder(string path, string folderName, List<GameObject> gameObjects)
 		{
-			if (
-				!string.IsNullOrWhiteSpace(path) &&
-				!string.IsNullOrWhiteSpace(folderName)
-				)
+			if (gameObjects != null && gameObjects.Count != 0)
 			{
-				if (gameObjects != null && gameObjects.Count != 0)
+				int savedGOs = 0;
+				int unsavedGOs = 0;
+
+				string[] way1 = { path, folderName };
+				string folderToSave = Path.Combine(way1);
+
+				if (!AssetDatabase.IsValidFolder(folderToSave))
+					AssetDatabase.CreateFolder(path, folderName);
+
+				foreach (GameObject gameObject in gameObjects)
 				{
-					string folderToSave = path + "/" + folderName;
-
-					if (!AssetDatabase.IsValidFolder(folderToSave))
-						AssetDatabase.CreateFolder(path, folderName);
-
-					Debug.Log("Prefab saved to " + folderToSave);
-
-					foreach (GameObject gameObject in gameObjects)
+					string[] way2 = { folderToSave, gameObject.name + PREFAB_EXTENSION };
+					string fullPath = Path.Combine(way2);
+					try
 					{
-						string fullPath = folderToSave + "/" + gameObject.name + PREFAB;
 						PrefabUtility.SaveAsPrefabAsset(gameObject, fullPath);
+						savedGOs++;
+					}
+					catch (Exception e)
+					{
+						Debug.LogError(
+							"Something went wrong" + "\n" +
+							$"Error message: {e.Message}" +
+							$"The exception was called while saving: {gameObject.name}");
+
+						unsavedGOs++;
 					}
 				}
-				else
-					Debug.LogError("The array of GameObjects to save is null or empty");
+				Debug.Log("Prefabs saved to " + folderToSave + "in count of " + savedGOs);
+				if (unsavedGOs > 0)
+					Debug.LogWarning("Unsaved prefabs: " + unsavedGOs);
 			}
 			else
-				Debug.LogError("The path to the folder doesn't exist or the target folder name is null or invalid");
+				Debug.LogError("The array of GameObjects to save is null or empty");
 		}
 
 		/// <summary>
@@ -45,22 +61,34 @@ namespace SerhiiStudio
 		/// <param name="objects"></param>
 		public static void Save(DefaultAsset folder, string targetFolderName, List<GameObject> objects)
 		{
-			string baseFolderPath = DeterminePath(folder);
-			SavePrefabsToSubfolder(baseFolderPath, targetFolderName, objects);
+			string baseFolderPath = AssetDatabase.GetAssetPath(folder);
+			if (ValidatePath(baseFolderPath, targetFolderName))
+			{
+				SavePrefabsToSubfolder(baseFolderPath, targetFolderName, objects);
+			}
 		}
 
-		private static string DeterminePath(DefaultAsset folder)
+		private static bool ValidatePath(string baseFolderPath, string targetFolderName)
 		{
-			string baseFolderPath = AssetDatabase.GetAssetPath(folder);
 			if (AssetDatabase.IsValidFolder(baseFolderPath))
 			{
 				Debug.Log("Destination folder is valid");
-				return baseFolderPath;
+
+				if (!string.IsNullOrWhiteSpace(targetFolderName))
+				{
+					Debug.Log("Target folder name is valid");
+					return true;
+				}
+				else
+				{
+					Debug.LogError("Target folder name is null or invalid");
+					return false;
+				}
 			}
 			else
 			{
 				Debug.LogError("Folder is invalid");
-				return null;
+				return false;
 			}
 		}
 	}

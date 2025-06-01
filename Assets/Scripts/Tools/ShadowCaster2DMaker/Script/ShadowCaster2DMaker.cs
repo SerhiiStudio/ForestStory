@@ -1,3 +1,6 @@
+// Copyright(c) 2025 SerhiiStudio
+// See LICENSE file for details
+
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;

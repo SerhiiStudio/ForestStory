@@ -1,3 +1,6 @@
+// Copyright(c) 2025 SerhiiStudio
+// See LICENSE file for details
+
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
