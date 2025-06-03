@@ -5,7 +5,7 @@ public class GameObjectBlocker : MonoBehaviour
 	[SerializeField] private bool block;
 	[SerializeField] private int id;
 	[SerializeField] private int clickCount;
-	[SerializeField] private GameObject gameObjectToBlock;
+	[SerializeField] private GameObject[] gameObjectsToBlock;
 
 	private int clicked;
 	private void Blocker(int id)
@@ -14,7 +14,8 @@ public class GameObjectBlocker : MonoBehaviour
 		{
 			clicked++;
 			if (clicked == clickCount)
-				gameObjectToBlock.SetActive(!block);
+				foreach (GameObject go in gameObjectsToBlock)
+					go.SetActive(!block);
 		}
 	}
 

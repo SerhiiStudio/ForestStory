@@ -9,6 +9,7 @@ public class InputMovement : MonoBehaviour
 	private PlayerInput input;
 	[SerializeField] private GameObject playerGO;
 	[SerializeField] private SpriteRenderer sprite;
+	[SerializeField] private Transform[] shadows;
 	[SerializeField] private Animator animator;
 	[SerializeField] private float speed = 1;
 
@@ -17,6 +18,7 @@ public class InputMovement : MonoBehaviour
 	private bool isStoppedActiningTransform = false;
 	private bool isWalking = false;
 	private bool isCloserToLeft = false;
+	private bool shadowsFlipped;
 
 	private void Start()
 	{
@@ -40,7 +42,7 @@ public class InputMovement : MonoBehaviour
 			transform.Translate(direction * speed);
 		}
 
-		float difference1 = Mathf.Abs(transform.position.x -limit.left);
+		float difference1 = Mathf.Abs(transform.position.x - limit.left);
 		float difference2 = Mathf.Abs(transform.position.x - limit.right);
 		isCloserToLeft = difference1 < difference2;
 		if (isCloserToLeft && transform.position.x < limit.left)
@@ -55,7 +57,7 @@ public class InputMovement : MonoBehaviour
 		}
 
 
-		
+
 
 
 		//Debug.Log(walkInp);
@@ -80,6 +82,7 @@ public class InputMovement : MonoBehaviour
 	private void OnEnable()
 	{
 		input.Movement.Walk.started += SpriteFlipper;
+		input.Movement.Walk.started += ShadowFlipper;
 		input.Movement.Walk.started += WalkAnim;
 		input.Movement.Walk.canceled += IdleAnim;
 
@@ -88,6 +91,7 @@ public class InputMovement : MonoBehaviour
 	private void OnDisable()
 	{
 		input.Movement.Walk.started -= SpriteFlipper;
+		input.Movement.Walk.started -= ShadowFlipper;
 		input.Movement.Walk.started -= WalkAnim;
 		input.Movement.Walk.canceled -= IdleAnim;
 
@@ -98,6 +102,24 @@ public class InputMovement : MonoBehaviour
 	{
 		if (!isStoppedActiningTransform)
 			sprite.flipX = context.ReadValue<float>() < 0 ? true : false;
+	}
+	private void ShadowFlipper(InputAction.CallbackContext context)
+	{
+
+		foreach (Transform sh in shadows)
+		{
+			if (context.ReadValue<float>() > 0 && sh.localScale.x < 0 && !shadowsFlipped)
+			{
+				sh.localScale = new Vector3(sh.localScale.x * -1, sh.localScale.y);
+				shadowsFlipped = true;
+			}
+			else
+			{
+				sh.localScale = new Vector3(sh.localScale.x * -1, sh.localScale.y);
+				shadowsFlipped = false;
+			}
+		}
+
 	}
 	private void WalkAnim(InputAction.CallbackContext context)
 	{
@@ -117,7 +139,7 @@ public class InputMovement : MonoBehaviour
 
 	private void EnableMovement(bool enable)
 	{
-		if (!enable) 
+		if (!enable)
 		{
 			isStoppedActiningTransform = true;
 		}
