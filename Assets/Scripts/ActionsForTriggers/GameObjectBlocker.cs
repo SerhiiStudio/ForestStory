@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class GameObjectBlocker : MonoBehaviour
 {
-	[SerializeField] private bool block;
 	[SerializeField] private int id;
 	[SerializeField] private int clickCount;
 	[SerializeField] private GameObject[] gameObjectsToBlock;
+	[SerializeField] private GameObject[] gameObjectsToUnblock;
 
 	private int clicked;
 	private void Blocker(int id)
@@ -14,8 +14,12 @@ public class GameObjectBlocker : MonoBehaviour
 		{
 			clicked++;
 			if (clicked == clickCount)
+			{
 				foreach (GameObject go in gameObjectsToBlock)
-					go.SetActive(!block);
+					go.SetActive(false);
+				foreach (GameObject go in gameObjectsToUnblock)
+					go.SetActive(true);
+			}
 		}
 	}
 
