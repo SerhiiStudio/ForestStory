@@ -45,7 +45,7 @@ public class EventSystem : MonoBehaviour
 		Buttons?.Invoke(id);
 	}
 
-	public void EnableOrDisablePlayerMovenemt(bool enable)
+	public void EnableOrDisablePlayerMovement(bool enable)
 	{
 		EnablePlayerMovement?.Invoke(enable);
 	}
@@ -79,6 +79,7 @@ public class EventSystem : MonoBehaviour
 
 	public void PlayAudio(AudioClipAsset audioClip)
 	{
+
 		PlayAudioEvent?.Invoke(audioClip);
 	}
 }

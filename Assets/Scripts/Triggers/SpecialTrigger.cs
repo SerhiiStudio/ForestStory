@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -26,51 +25,43 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 	private Coroutine animatorCoroutine;
 	private Coroutine disablingPlayerCoroutine;
 
-	private List<Coroutine> coroutines = new List<Coroutine>();
+	
 
-
-	private void Start()
-	{
-		AddCoroutines();
-	}
-
-	private void AddCoroutines()
-	{
-		coroutines.Add(audioCoroutine);
-		coroutines.Add(animatorCoroutine);
-		coroutines.Add(disablingPlayerCoroutine);
-	}
 
 	private void TryDestroyTrigger()
 	{
-		foreach (var coroutine in coroutines)
+		if (audioCoroutine == null && animatorCoroutine == null && disablingPlayerCoroutine == null)
 		{
-			if (coroutine != null)
-				return;
+			Destroy(gameObject);
 		}
-
-		Destroy(gameObject);
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		Activate();
-	}
-	private void Activate()
-	{
-		uEvent?.Invoke();
+		uEvent?.Invoke(); // Activate the delegate
+		Debug.Log("something happened");
 	}
 
 
 	public void PlayMusic()
 	{
-		if (audioCoroutine == null)
-			audioCoroutine = StartCoroutine(MusicCoroutine());
+		if (audioCoroutine != null)
+			return;
+
+		if (clip == null)
+		{
+			Debug.LogWarning("The PlayMusic method was chosen but the audio clip wasn't assigned or null");
+			return;
+		}
+
+		audioCoroutine = StartCoroutine(MusicCoroutine());
+
 	}
 	private IEnumerator MusicCoroutine()
 	{
-		WaitForSeconds wait = new WaitForSeconds(clipDelay);
-		yield return wait;
+		WaitForSeconds clipWait = new WaitForSeconds(clipDelay);
+		yield return clipWait;
+
 		EventSystem.Instance.PlayAudio(clip);
 
 		audioCoroutine = null; // When coroutine ended our system to know if all coroutines are null
@@ -80,13 +71,20 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 
 	public void PlayAnimator()
 	{
-		if (animatorCoroutine == null)
+		if (animatorCoroutine != null) return;
+		if (animator == null)
+		{
+			Debug.LogWarning("The PlayAnimator method was chosen but the animator wasn't assigned or null");
+			return;
+		}
 		animatorCoroutine = StartCoroutine(AnimatorCoroutine());
+				
+
 	}
 	private IEnumerator AnimatorCoroutine()
 	{
-		WaitForSeconds wait = new WaitForSeconds(animatorDelay);
-		yield return wait;
+		WaitForSeconds animatorWait = new WaitForSeconds(animatorDelay);
+		yield return animatorWait;
 
 		animator.enabled = true;
 
@@ -96,7 +94,7 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 			animator.enabled = false;
 		}
 
-		audioCoroutine = null;
+		animatorCoroutine = null;
 
 		TryDestroyTrigger();
 	}
@@ -108,15 +106,16 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 	}
 	private IEnumerator DisablePlayerCoroutine()
 	{
-		WaitForSeconds waitDisable = new WaitForSeconds(disablePlayerAfter);
-		yield return waitDisable;
-		EventSystem.Instance.EnableOrDisablePlayerMovenemt(false);
+		WaitForSeconds disableWait = new WaitForSeconds(disablePlayerAfter);
+		yield return disableWait;
+		EventSystem.Instance.EnableOrDisablePlayerMovement(false);
 
 		if (enablePlayerAfter > 0.1f)
 		{
-			WaitForSeconds waitEnable = new WaitForSeconds(enablePlayerAfter);
-			yield return waitEnable;
-			EventSystem.Instance.EnableOrDisablePlayerMovenemt(true);
+			WaitForSeconds enableWait = new WaitForSeconds(enablePlayerAfter);
+			yield return enableWait;
+
+			EventSystem.Instance.EnableOrDisablePlayerMovement(true);
 		}
 
 		disablingPlayerCoroutine = null;

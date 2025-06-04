@@ -27,7 +27,7 @@ public class EnablePlayerMovement : MonoBehaviour
 		{
 			clicks++;
 			if (clicks == clickCount)
-				EventSystem.Instance.EnableOrDisablePlayerMovenemt(enable);
+				EventSystem.Instance.EnableOrDisablePlayerMovement(enable);
 		}
 	}
 
