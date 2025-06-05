@@ -11,14 +11,10 @@ public class EnablePlayerMovement : MonoBehaviour
 	private void OnEnable()
 	{
 		EventSystem.Instance.Buttons += Clicked;
-
-		//EventSystem.Instance.DayTransitionFinished += EnableOnDayTransition;
 	}
 	private void OnDisable()
 	{
 		EventSystem.Instance.Buttons -= Clicked;
-
-		//EventSystem.Instance.DayTransitionFinished += EnableOnDayTransition;
 	}
 
 	private void Clicked(int id) 
@@ -31,8 +27,8 @@ public class EnablePlayerMovement : MonoBehaviour
 		}
 	}
 
+	//  We don't need this method so far
 	private void EnableOnDayTransition(Days day) // Choose the way to use enabling frequently
 	{
-		//EventSystem.Instance.EnableOrDisablePlayerMovenemt(true);
 	}
 }

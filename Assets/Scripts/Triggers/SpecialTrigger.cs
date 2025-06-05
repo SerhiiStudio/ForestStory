@@ -21,16 +21,33 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 	[SerializeField] private float disablePlayerAfter;
 	[SerializeField] private float enablePlayerAfter;
 
+	[Header("Start day transition")]
+	[SerializeField] private Days day;
+	[SerializeField] private float startDayTransitionAfter;
+	[SerializeField] private bool disablePlayerMovenent;
+
+	[Header("Activate GameObjects")]
+	[SerializeField] private GameObject[] gameObjectsToActivate;
+	[SerializeField] private float timeToActivateGameObjects;
+
+	[Header("Deactivate GameObjects")]
+	[SerializeField] private GameObject[] gameObjectsToDeactivate;
+	[SerializeField] private float timeToDeactivateGameObjects;
+
 	private Coroutine audioCoroutine;
 	private Coroutine animatorCoroutine;
 	private Coroutine disablingPlayerCoroutine;
+	private Coroutine dayTransitionCoroutine;
+	private Coroutine activateGameObjectsCoroutine;
+	private Coroutine deactivateGameObjectsCoroutine;
 
-	
+
 
 
 	private void TryDestroyTrigger()
 	{
-		if (audioCoroutine == null && animatorCoroutine == null && disablingPlayerCoroutine == null)
+		if (audioCoroutine == null && animatorCoroutine == null && disablingPlayerCoroutine == null && dayTransitionCoroutine == null
+			&& activateGameObjectsCoroutine == null && deactivateGameObjectsCoroutine == null)
 		{
 			Destroy(gameObject);
 		}
@@ -78,7 +95,7 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 			return;
 		}
 		animatorCoroutine = StartCoroutine(AnimatorCoroutine());
-				
+
 
 	}
 	private IEnumerator AnimatorCoroutine()
@@ -119,6 +136,73 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 		}
 
 		disablingPlayerCoroutine = null;
+
+		TryDestroyTrigger();
+	}
+
+	public void TransiteDay()
+	{
+		dayTransitionCoroutine = StartCoroutine(DayTransitionCoroutine());
+	}
+
+	private IEnumerator DayTransitionCoroutine()
+	{
+		WaitForSeconds dayTransitionWait = new WaitForSeconds(startDayTransitionAfter);
+		yield return dayTransitionWait;
+
+		EventSystem.Instance.StartDayTransition(day);
+
+		if (disablePlayerMovenent)
+			EventSystem.Instance.EnableOrDisablePlayerMovement(false);
+
+		dayTransitionCoroutine = null;
+
+		TryDestroyTrigger();
+	}
+
+	public void ActivateGameObject()
+	{
+		if (activateGameObjectsCoroutine == null)
+			activateGameObjectsCoroutine = StartCoroutine(ActivateGOsCoroutine());
+	}
+	private IEnumerator ActivateGOsCoroutine()
+	{
+		if (timeToActivateGameObjects > 0.01f)
+		{
+			WaitForSeconds waitToActivateGOs = new WaitForSeconds(timeToActivateGameObjects);
+			yield return waitToActivateGOs;
+		}
+
+		foreach (GameObject go in gameObjectsToActivate)
+		{
+			go.SetActive(true);
+		}
+
+		activateGameObjectsCoroutine = null;
+
+		TryDestroyTrigger();
+	}
+
+	public void DeactivateGameObjects()
+	{
+		if (deactivateGameObjectsCoroutine == null)
+			deactivateGameObjectsCoroutine = StartCoroutine(DeactivateGOsCoroutine());
+	}
+
+	private IEnumerator DeactivateGOsCoroutine()
+	{
+		if (timeToDeactivateGameObjects > 0.01f)
+		{
+			WaitForSeconds waitToDeactivateGOs = new WaitForSeconds(timeToDeactivateGameObjects);
+			yield return waitToDeactivateGOs;
+		}
+
+		foreach (GameObject go in gameObjectsToDeactivate)
+		{
+			go.SetActive(false);
+		}
+
+		deactivateGameObjectsCoroutine = null;
 
 		TryDestroyTrigger();
 	}

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class DayOpening : MonoBehaviour
 {
+	[Header("Day")]
+	[SerializeField] private Days day;
 	[SerializeField] private Transform lookAt;
 	[SerializeField] private Transform displacePlayerAt;
 	private Coroutine coroutine;
@@ -21,7 +23,7 @@ public class DayOpening : MonoBehaviour
 
 	private void StartOpening(Days day)
 	{
-		if (coroutine == null)
+		if (coroutine == null && day == this.day)
 			coroutine = StartCoroutine(OpeningVid());
 	}
 

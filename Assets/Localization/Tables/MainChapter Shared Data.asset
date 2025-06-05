@@ -95,6 +95,10 @@ MonoBehaviour:
     m_Key: Day 2 Diary 3
     m_Metadata:
       m_Items: []
+  - m_Id: 7599844703924224
+    m_Key: SomeText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
