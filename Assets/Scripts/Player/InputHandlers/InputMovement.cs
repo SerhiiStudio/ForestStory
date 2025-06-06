@@ -105,21 +105,23 @@ public class InputMovement : MonoBehaviour
 	}
 	private void ShadowFlipper(InputAction.CallbackContext context)
 	{
-
-		foreach (Transform sh in shadows)
+		if (context.ReadValue<float>() < 0 && !shadowsFlipped)
 		{
-			if (context.ReadValue<float>() > 0 && sh.localScale.x < 0 && !shadowsFlipped)
+			foreach (Transform sh in shadows)
 			{
 				sh.localScale = new Vector3(sh.localScale.x * -1, sh.localScale.y);
-				shadowsFlipped = true;
 			}
-			else
-			{
-				sh.localScale = new Vector3(sh.localScale.x * -1, sh.localScale.y);
-				shadowsFlipped = false;
-			}
+			shadowsFlipped = true;
 		}
 
+		if (context.ReadValue<float>() > 0 && shadowsFlipped)
+		{
+			foreach (Transform sh in shadows)
+			{
+				sh.localScale = new Vector3(sh.localScale.x * -1, sh.localScale.y);
+			}
+			shadowsFlipped = false;
+		}
 	}
 	private void WalkAnim(InputAction.CallbackContext context)
 	{
