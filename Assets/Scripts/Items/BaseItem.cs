@@ -7,7 +7,7 @@ public abstract class BaseItem : MonoBehaviour
 	[SerializeField] protected bool collectToInventory;
 	[SerializeField] protected Animator animator;
 	[Header("If item is supposed to be in inventory")]
-	[SerializeField] protected Sprite inInventory;
+	[SerializeField] protected ItemData itemData;
 	[Header("\n\n-----------------------------------\n" +
 		"Must be identical to text/trigger id")] // Not necessary but recommended
 	[SerializeField] protected int id;
@@ -16,20 +16,25 @@ public abstract class BaseItem : MonoBehaviour
 	{
 		if (id == this.id)
 		{
-
 			// If item is supposed to be in inventory
 			if (collectToInventory)
 			{
-				Debug.Log("Fall in the inventory");//TakeToInventory();
+				//itemData.id = id;
+
+				TakeToInventory();
+
+				
+
 				return;
 			}
+			EventSystem.Instance.PlayAudio(itemData.takeItemSound);
 			StartAnimationCoroutine();
 		}
 	}
 
 	protected virtual void TakeToInventory()
 	{
-		EventSystem.Instance.TakeItemToInventory(inInventory);
+		EventSystem.Instance.TakeItemToInventory(itemData);
 	}
 
 	protected void OnEnable()

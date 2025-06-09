@@ -16,7 +16,7 @@ public class PlayerMain : MonoBehaviour // In progress to refactor
 	// If we need to stop transform movement to use rigidbody
 	private bool isMovementStopped = false;
 	private bool isWalking = false;
-	private bool isCloserToLeft = false;
+	//private bool isCloserToLeft = false;
 	private bool isGoingLeft;
 
 	// Properties

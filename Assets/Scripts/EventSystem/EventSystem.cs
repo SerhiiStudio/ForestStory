@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EventSystem : MonoBehaviour
 {
@@ -26,7 +27,10 @@ public class EventSystem : MonoBehaviour
 	public event Action<Transform> DisplacePlayerEvent;
 
 	public event Action<int> TakeItemEvent;
-	public event Action<Sprite> TakeItemToInventoryEvent;
+
+	public event Action<ItemData> TakeItemToInventoryEvent;
+	public event Action<ItemData> UseItemInInventoryEvent;
+	public event Action<ItemData> TakeItemOffInventoryEvent;
 
 	public event Action<AudioClipAsset> PlayAudioEvent;
 
@@ -72,9 +76,17 @@ public class EventSystem : MonoBehaviour
 	{
 		TakeItemEvent?.Invoke(id);
 	}
-	public void TakeItemToInventory(Sprite sprite)
+	public void TakeItemToInventory(ItemData data)
 	{
-		TakeItemToInventoryEvent?.Invoke(sprite);
+		TakeItemToInventoryEvent?.Invoke(data);
+	}
+	public void UseItemInInventory(ItemData data)
+	{
+		UseItemInInventoryEvent?.Invoke(data);
+	}
+	public void TakeItemOffInventory(ItemData data)
+	{
+		TakeItemOffInventoryEvent?.Invoke(data);
 	}
 
 	public void PlayAudio(AudioClipAsset audioClip)
