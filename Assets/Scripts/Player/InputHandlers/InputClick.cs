@@ -1,17 +1,18 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputClick : MonoBehaviour
 {
-	private int triggerZoneId = -1;
+	private int triggerZoneId = defaultZoneId;
+
+	private const int defaultZoneId = -1;
 
 	private PlayerInput input;
 
 
 	private void Awake()
 	{
-		input = InputSistema.instance.input;
+		input = InputSistema.Instance.Input;
 	}
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
@@ -23,12 +24,17 @@ public class InputClick : MonoBehaviour
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		triggerZoneId = -1;
+		triggerZoneId = defaultZoneId;
 	}
 
 	private void OnEnable()
 	{
 		input.Clicks.Up.performed += ClickUp;
+	}
+
+	private void OnDisable()
+	{
+		input.Clicks.Up.performed -= ClickUp;
 	}
 
 	private void ClickUp(InputAction.CallbackContext context)

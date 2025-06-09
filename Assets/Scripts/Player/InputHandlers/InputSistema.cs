@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class InputSistema : MonoBehaviour
 {
-	public static InputSistema instance;
-	public PlayerInput input;
+	public static InputSistema Instance { get; private set; }
+	public PlayerInput Input => input;
+
+
+	private PlayerInput input;
+
+	
 
 	private void Awake()
 	{
-		if (instance == null)
-			instance = this;
-		else
-			Destroy(instance.gameObject);
+		if (Instance != null && Instance != this) 
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		Instance = this;
 		input = new PlayerInput();
 	}
 
