@@ -3,32 +3,41 @@ using UnityEngine;
 
 public abstract class BaseItem : MonoBehaviour
 {
-	//[SerializeField] protected int itemId;
-	[SerializeField] protected bool collectToInventory;
-	[SerializeField] protected Animator animator;
-	[Header("If item is supposed to be in inventory")]
-	[SerializeField] protected ItemData itemData;
 	[Header("\n\n-----------------------------------\n" +
-		"Must be identical to text/trigger id")] // Not necessary but recommended
+		"Must be identical to text/trigger id")]
 	[SerializeField] protected int id;
+
+	[SerializeField] protected Animator animator;
+
+	[Header("If item is supposed to be in inventory")]
+	[SerializeField] protected bool collectToInventory;
+	[SerializeField] protected ItemData itemData;
+
+	public int Id => id;
+	public ItemData ItemData => itemData;
+
 
 	protected virtual void Take(int id)
 	{
 		if (id == this.id)
 		{
+
+			if (itemData.playSoundOnPickup)
+				EventSystem.Instance.PlayAudio(itemData.takeItemSound);
+
+			StartAnimationCoroutine();
+
+
 			// If item is supposed to be in inventory
 			if (collectToInventory)
 			{
-				//itemData.id = id;
-
-				TakeToInventory();
-
-				
+				if (itemData != null)
+					TakeToInventory();
+				else
+					Debug.LogWarning("The item should be picked to inventory but the data is null");
 
 				return;
 			}
-			EventSystem.Instance.PlayAudio(itemData.takeItemSound);
-			StartAnimationCoroutine();
 		}
 	}
 

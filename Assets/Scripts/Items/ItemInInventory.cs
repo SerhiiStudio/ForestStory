@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,35 +14,38 @@ public class ItemInInventory : MonoBehaviour
 	public bool Active => image.sprite != null;
 
 	protected void OnEnable()
-	{
+	{/*
 		EventSystem.Instance.TakeItemToInventoryEvent += ShowItem;
 		EventSystem.Instance.UseItemInInventoryEvent += UseItem;
-		EventSystem.Instance.TakeItemOffInventoryEvent += HideItem;
+		EventSystem.Instance.TakeItemOffInventoryEvent += HideItem;*/
 	}
 
 	protected void OnDisable()
 	{
-		EventSystem.Instance.TakeItemToInventoryEvent -= ShowItem;
-		EventSystem.Instance.UseItemInInventoryEvent -= UseItem;
-		EventSystem.Instance.TakeItemOffInventoryEvent -= HideItem;
+		//EventSystem.Instance.TakeItemToInventoryEvent -= ShowItem;
+		//EventSystem.Instance.UseItemInInventoryEvent -= UseItem;
+		//EventSystem.Instance.TakeItemOffInventoryEvent -= HideItem;
 	}
 
 
-	protected void ShowItem(ItemData data)
+	public void AddItem(ItemData data)
 	{
 		if (image == null)
 		{
-			image.sprite =  itemData.image;
+			image.sprite = itemData.image;
 			image.enabled = true;
 		}
 	}
 
-	protected void UseItem(ItemData data)
+	public bool UseItem(ItemData data)
 	{
-		if (data == this.image && image.enabled)
+		if (data == this.itemData && image.enabled)
 		{
-			EventSystem.Instance.PlayAudio(itemData.useItemSound);
+			if (data.playSoundOnUsing)
+				EventSystem.Instance.PlayAudio(itemData.useItemSound);
+			return true;
 		}
+		return false;
 	}
 
 	protected void HideItem(ItemData data)
@@ -52,7 +54,8 @@ public class ItemInInventory : MonoBehaviour
 		{
 			image.enabled = false;
 
-			EventSystem.Instance.PlayAudio(itemData.removeItemSound);
+			if (data.playSoundOnRemoving)
+				EventSystem.Instance.PlayAudio(itemData.removeItemSound);
 		}
 	}
 }
