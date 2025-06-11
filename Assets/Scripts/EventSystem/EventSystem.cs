@@ -29,8 +29,14 @@ public class EventSystem : MonoBehaviour
 	public event Action<int> TakeItemEvent;
 
 	public event Action<ItemData> TakeItemToInventoryEvent;
-	public event Action<ItemData> UseItemInInventoryEvent;
-	public event Action<ItemData> TakeItemOffInventoryEvent;
+	public event Func<ItemData, bool> UseItemInInventoryEvent;
+
+	public event Action<int> ItemSuccessfullyUsedEvent;
+	public event Action<int> ItemSuccessfullyUsedRemovedEvent;
+
+	public event Func<ItemData, bool> TakeItemOffInventoryEvent;
+
+	public event Action InventoryFullEvent;
 
 	public event Action<AudioClipAsset> PlayAudioEvent;
 
@@ -80,14 +86,31 @@ public class EventSystem : MonoBehaviour
 	{
 		TakeItemToInventoryEvent?.Invoke(data);
 	}
-	public void UseItemInInventory(ItemData data)
+	public bool UseItemInInventory(ItemData data)
 	{
-		UseItemInInventoryEvent?.Invoke(data);
+		return UseItemInInventoryEvent?.Invoke(data) ?? false;
 	}
-	public void TakeItemOffInventory(ItemData data)
+
+	public void ItemSuccessfullyUsed(int id)
 	{
-		TakeItemOffInventoryEvent?.Invoke(data);
+		ItemSuccessfullyUsedEvent?.Invoke(id);
 	}
+	public void ItemSuccessfullyRemoved(int id)
+	{
+		ItemSuccessfullyUsedRemovedEvent?.Invoke(id);
+	}
+
+	public bool TakeItemOffInventory(ItemData data)
+	{
+		return TakeItemOffInventoryEvent?.Invoke(data) ?? false;
+	}
+
+
+	public void NotifyInventoryFull()
+	{
+		InventoryFullEvent?.Invoke();
+	}
+
 
 	public void PlayAudio(AudioClipAsset audioClip)
 	{

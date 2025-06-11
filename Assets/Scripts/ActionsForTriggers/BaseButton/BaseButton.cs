@@ -9,7 +9,6 @@ public class BaseButton : MonoBehaviour
 
 	private void OnEnable()
 	{
-		Debug.Log(EventSystem.Instance.gameObject.activeSelf);
 		EventSystem.Instance.IteractionTriggers += ShowButton;
 		EventSystem.Instance.LeaveIteractionTriggers += HideButton;
 		EventSystem.Instance.Buttons += ActivateButton;

@@ -6,6 +6,7 @@ public class WorldBoundaryLimiter : MonoBehaviour
 
 	private const float boundTreshold = 0.07f;
 
+	
 
 	private void Update()
 	{
