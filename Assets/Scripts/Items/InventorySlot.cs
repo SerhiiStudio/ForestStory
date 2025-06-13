@@ -20,7 +20,6 @@ public class InventorySlot : MonoBehaviour
 
 		image.sprite = itemData.image;
 		image.enabled = true;
-		Debug.LogError(image.enabled);
 	}
 
 	public void UseItem(ItemData data)
