@@ -10889,6 +10889,7 @@ MonoBehaviour:
   itemSlots:
   - {fileID: 558404480}
   - {fileID: 796942290}
+  - {fileID: 937558779}
 --- !u!1 &1665244784
 GameObject:
   m_ObjectHideFlags: 0

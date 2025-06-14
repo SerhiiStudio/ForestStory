@@ -32,11 +32,11 @@ public class InventorySlot : MonoBehaviour
 	{
 		if (data == this.itemData)
 		{
-			image.enabled = false;
-			itemData = null;
-
 			if (data.playSoundOnRemoving)
 				EventSystem.Instance.PlayAudio(itemData.removeItemSound);
+
+			image.enabled = false;
+			itemData = null;
 		}
 	}
 }
