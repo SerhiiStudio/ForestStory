@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameObj_Count_Blocker : GameObjBlocker
 {
+    [Header("")] // Add a little space
+
     [SerializeField] private int clickCount;
     private int clicked;
 
