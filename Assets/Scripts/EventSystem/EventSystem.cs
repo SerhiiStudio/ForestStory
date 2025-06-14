@@ -44,7 +44,6 @@ public class EventSystem : MonoBehaviour
 	public void GetOnTrigger(int id)
 	{
 		IteractionTriggers?.Invoke(id);
-		Debug.Log("Trigger ID: " + id + " activated");
 	}
 	public void GetOffTrigger(int id)
 	{

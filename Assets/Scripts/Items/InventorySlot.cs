@@ -5,9 +5,6 @@ public class InventorySlot : MonoBehaviour
 {
 	[SerializeField] protected Image image;
 
-	[Header("Should be audio effect")]
-	[SerializeField] protected bool playSoundEffect;
-
 	[SerializeField] protected ItemData itemData;
 
 	public ItemData ItemData => itemData;
