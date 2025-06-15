@@ -13,14 +13,39 @@ MonoBehaviour:
   m_Name: Diary
   m_EditorClassIdentifier: 
   localizedStr:
-    m_TableReference:
-      m_TableCollectionName: 
+  - m_TableReference:
+      m_TableCollectionName: GUID:f974c076125e2c544a116a0fc145de0a
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 324201532420096
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:f974c076125e2c544a116a0fc145de0a
+    m_TableEntryReference:
+      m_KeyId: 325146488139776
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:f974c076125e2c544a116a0fc145de0a
+    m_TableEntryReference:
+      m_KeyId: 335216076713984
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  - m_TableReference:
+      m_TableCollectionName: GUID:f974c076125e2c544a116a0fc145de0a
+    m_TableEntryReference:
+      m_KeyId: 335683116658688
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  activeText: 0
   references:
     version: 2
     RefIds: []

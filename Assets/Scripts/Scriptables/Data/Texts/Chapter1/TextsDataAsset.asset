@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802a8eaffb212dc4ca14784949882082, type: 3}
   m_Name: TextsDataAsset
   m_EditorClassIdentifier: 
+  localizedStr: []
+  activeText: 0
+  references:
+    version: 2
+    RefIds: []

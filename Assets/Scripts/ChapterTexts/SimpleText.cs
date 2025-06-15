@@ -4,7 +4,7 @@ public sealed class SimpleText : BaseText
 {
 	protected override void Clicked(int id)
 	{
-		Debug.Log("Entered text event: " + id);
+		//Debug.Log("Entered text event: " + id);
 
 		if (this.id == id)
 		{

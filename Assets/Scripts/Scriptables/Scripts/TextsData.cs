@@ -10,5 +10,16 @@ public class TextsData : ScriptableObject
 {
     [SerializeField] private LocalizedString[] localizedStr;
 
-    public LocalizedString[] LocalizedStr => localizedStr;
+    public LocalizedString[] LocalizedTexts => localizedStr;
+
+    public LocalizedString this[int index]
+    {
+        get 
+        {
+            if (index >= 0 && index < localizedStr.Length)
+                return localizedStr[index];
+            else
+                return null;
+        }
+    }
 }
