@@ -14,7 +14,6 @@ public abstract class BaseText : MonoBehaviour
 
 	protected Text hiddenText;
 
-	protected int hiddenTextId;
 	protected int clicked;
 
 	protected bool isHidden = false;
@@ -61,8 +60,13 @@ public abstract class BaseText : MonoBehaviour
 	{
 		if (this.id == id && isHidden)
 		{
-			hiddenText.enabled = true;
+			if (hiddenText != null && hiddenText.gameObject != null)
+			{
+				hiddenText.enabled = true;
+			}
+			
 			isHidden = false;
+			hiddenText = null;
 		}
 	}
 
