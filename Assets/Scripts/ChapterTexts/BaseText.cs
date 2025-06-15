@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public abstract class BaseText : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public abstract class BaseText : MonoBehaviour
 	[SerializeField] protected List<Text> text;
 	[SerializeField] protected int clickCount = 2;
 	[SerializeField] protected int id;
+
+
+	protected Text hiddenText;
+
 	protected int hiddenTextId;
 	protected int clicked;
 
@@ -17,14 +22,11 @@ public abstract class BaseText : MonoBehaviour
 
 	protected void OnEnable()
 	{
-		if (text.Count == 0 || text == null)
+		if (text == null || text.Count == 0)
 		{
-			Debug.LogWarning(
-	$"List of text is null or empty\n" +
-	$"Is empty: {text.Count == 0}\n" +
-	$"Is null: {text == null}\n\n" +
-	$"Gameobject's name: {gameObject.name}"
-);
+			string msg = $"List of text is : {(text == null ? "null" : "empty")} \n\n Gameobject's name: {gameObject.name}";
+
+			Debug.LogWarning(msg);
 		}
 
 		EventSystem.Instance.Buttons += Clicked;
@@ -41,21 +43,16 @@ public abstract class BaseText : MonoBehaviour
 
 	protected abstract void Clicked(int id);
 
+
 	protected void HideText(int id)
 	{
 		if (this.id == id && !isHidden && TextEnabled(text))
 		{
-			for (int i = 0; i < text.Count; i++)
+			hiddenText = text.FirstOrDefault(t => t != null && t.enabled);
+			if (hiddenText != null)
 			{
-				var textItem = this.text[i];
-
-				if (!textItem.enabled)
-					continue;
-
-				textItem.enabled = false;
-				hiddenTextId = i;
+				hiddenText.enabled = false;
 				isHidden = true;
-				break;
 			}
 		}
 	}
@@ -64,19 +61,11 @@ public abstract class BaseText : MonoBehaviour
 	{
 		if (this.id == id && isHidden)
 		{
-			text[hiddenTextId].enabled = true;
+			hiddenText.enabled = true;
 			isHidden = false;
 		}
 	}
 
-	protected bool TextEnabled(IEnumerable<Text> text)
-	{
-		bool isEnabled = false;
-		foreach (var t in text)
-		{
-			if (t.enabled == true)
-				isEnabled = true;
-		}
-		return isEnabled;
-	}
+	protected bool TextEnabled(IEnumerable<Text> texts) =>
+		texts != null && texts.Any(t => t != null && t.enabled);
 }
