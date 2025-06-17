@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 
 public class EventSystem : MonoBehaviour
 {
@@ -39,6 +41,11 @@ public class EventSystem : MonoBehaviour
 	public event Action InventoryFullEvent;
 
 	public event Action<AudioClipAsset> PlayAudioEvent;
+
+	public event Action<LocalizedString> ChangeTextEvent;
+	public event Action HideTextEvent;
+	public event Action<LocalizedString> ShowTextEvent;
+	public event Action EndTextEvent;
 
 
 	public void GetOnTrigger(int id)
@@ -115,5 +122,25 @@ public class EventSystem : MonoBehaviour
 	{
 
 		PlayAudioEvent?.Invoke(audioClip);
+	}
+
+	public void ChangeText(LocalizedString localizedText)
+	{
+		ChangeTextEvent?.Invoke(localizedText);
+	}
+
+	public void HideText()
+	{
+		HideTextEvent?.Invoke();
+	}
+
+	public void ShowText(LocalizedString localizedText)
+	{
+		ShowTextEvent?.Invoke(localizedText);
+	}
+
+	public void EndText()
+	{
+		EndTextEvent?.Invoke();
 	}
 }

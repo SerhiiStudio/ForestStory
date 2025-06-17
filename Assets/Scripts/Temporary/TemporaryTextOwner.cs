@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 
-public class TemporaryTextOwner : MonoBehaviour
+public class TemporaryTextOwner : MonoBehaviour // All debug.logerrors are while testing
 {
     [SerializeField] protected int id;
     [SerializeField] protected TextsData txtData;
@@ -23,7 +23,7 @@ public class TemporaryTextOwner : MonoBehaviour
 
     protected bool isHidden = false;
 
-/*
+
     protected void OnEnable()
     {
         if (txtData == null || txtData.LocalizedTexts.Length == 0)
@@ -44,7 +44,7 @@ public class TemporaryTextOwner : MonoBehaviour
         EventSystem.Instance.LeaveIteractionTriggers -= HideText;
         EventSystem.Instance.IteractionTriggers -= ShowText;
     }
-*/
+
     protected void Start()
     {
         clickCount = txtData.LocalizedTexts.Length + 1; // Lenght plus one to hide the last element
@@ -61,14 +61,17 @@ public class TemporaryTextOwner : MonoBehaviour
             if (textIndex < txtData.LocalizedTexts.Length)
             {
                 currentText = txtData.LocalizedTexts[textIndex];
+                Debug.LogError("text changed");
 
                 // Call the manager to change the text
+                EventSystem.Instance.ChangeText(currentText);
             }
 
             if (clicked == clickCount)
             {
                 // Tell the manager that this text is done
-
+                EventSystem.Instance.EndText();
+                Debug.LogError("this text is done");
                 if (trigger != null)
                     trigger.SetActive(false);
             }
@@ -78,34 +81,33 @@ public class TemporaryTextOwner : MonoBehaviour
 
     protected void HideText(int id)
     {
-        if (this.id == id && !isHidden && TextEnabled(txtData))
+        if (CanToggleText(id, false))
         {
             // Call the manager to hide the text
+            EventSystem.Instance.HideText();
+            Debug.LogError("text hid");
             isHidden = true;
         }
     }
 
-    protected void ShowText()
+    protected void ShowText(int id)
     {
-        
-    }
-
-    protected void ShowTextOnTrigger(int id)
-    {
-        if (this.id == id && isHidden)
+        if (CanToggleText(id, true))
         {
-            // Call the managere to chow the text
-            
+            // Call the managere to show the text
+            EventSystem.Instance.ShowText(currentText);
+            Debug.LogError("text showed");
             isHidden = false;
         }
     }
 
+
+    protected bool CanToggleText(int id, bool targetHiddenState) =>
+    
+        this.id == id && targetHiddenState == isHidden && TextEnabled(txtData);
+    
+
     protected bool TextEnabled(TextsData texts) =>
-        texts != null && texts.LocalizedTexts.Any(t => t != null /*&& t.activeText*/);
+        texts != null && texts.LocalizedTexts.Any(t => t != null);
 
-
-    protected void ShowOrHideText(bool show)
-    {
-
-    }
 }
