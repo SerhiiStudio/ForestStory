@@ -47,7 +47,7 @@ public class TemporaryTextOwner : MonoBehaviour // All debug.logerrors are while
 
     protected void Start()
     {
-        clickCount = txtData.LocalizedTexts.Length + 1; // Lenght plus one to hide the last element
+        clickCount = txtData.LocalizedTexts.Length;
     }
 
     protected void Clicked(int id)
