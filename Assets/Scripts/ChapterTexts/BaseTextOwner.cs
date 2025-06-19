@@ -42,7 +42,9 @@ public class BaseTextOwner : MonoBehaviour
 
     protected void Start()
     {
-        clickCount = txtData?.LocalizedTexts?.Length ?? 0; // Define clickCount based on lenght of localized strings
+        int length = txtData?.LocalizedTexts?.Length ?? 0;  // Define clickCount based on lenght of localized strings
+        clickCount = (length == 1) ? 2 : length; 
+        Debug.Log(clickCount);
     }
 
     /// <summary>
@@ -90,9 +92,9 @@ public class BaseTextOwner : MonoBehaviour
     protected virtual void EndText()
     {
         // Tell the manager that this text is done
-            events.EndText();
-            if (trigger != null)
-                trigger.SetActive(false);
+        events.EndText();
+        if (trigger != null)
+            trigger.SetActive(false);
     }
 
     protected virtual void HideText(int id)
