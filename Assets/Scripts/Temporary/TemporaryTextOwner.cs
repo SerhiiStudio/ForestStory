@@ -23,91 +23,111 @@ public class TemporaryTextOwner : MonoBehaviour // All debug.logerrors are while
 
     protected bool isHidden = false;
 
+    protected EventSystem events => EventSystem.Instance;
+
 
     protected void OnEnable()
     {
-        if (txtData == null || txtData.LocalizedTexts.Length == 0)
-        {
-            string msg = $"List of text is : {(txtData == null ? "null" : "empty")} \n\n Gameobject's name: {gameObject.name}";
-
-            Debug.LogWarning(msg);
-        }
-
-        EventSystem.Instance.Buttons += Clicked;
-        EventSystem.Instance.LeaveIteractionTriggers += HideText;
-        EventSystem.Instance.IteractionTriggers += ShowText;
+        events.Buttons += Clicked;
+        events.LeaveIteractionTriggers += HideText;
+        events.IteractionTriggers += ShowText;
     }
 
     protected void OnDisable()
     {
-        EventSystem.Instance.Buttons -= Clicked;
-        EventSystem.Instance.LeaveIteractionTriggers -= HideText;
-        EventSystem.Instance.IteractionTriggers -= ShowText;
+        events.Buttons -= Clicked;
+        events.LeaveIteractionTriggers -= HideText;
+        events.IteractionTriggers -= ShowText;
     }
 
     protected void Start()
     {
-        clickCount = txtData.LocalizedTexts.Length;
+        clickCount = txtData?.LocalizedTexts?.Length ?? 0; // Define clickCount based on lenght of localized strings
     }
 
+    /// <summary>
+    /// Activates on Buttons event
+    /// </summary>
+    /// <remarks>
+    /// Calls: <see cref="CheckId(int)"\> - if true calls <see cref="IncreaseClicked"/> and determines <see cref="F:textIndex"/>, 
+    /// calls <see cref="ChangeText(int)"/>
+    /// and <see cref="CheckReachClickCount"/> - if true calls <see cref="EndText"/>
+    /// </remarks>
+    /// <param name="id">Id of the button that called the event</param>
     protected void Clicked(int id)
     {
-        if (this.id == id)
-        {
-            clicked++;
+        if (!CheckId(id))
+            return;
+        
+        IncreaseClicked();
 
-            int textIndex = clicked - 1;
+        int textIndex = clicked - 1;
             
-            if (textIndex < txtData.LocalizedTexts.Length)
-            {
-                currentText = txtData.LocalizedTexts[textIndex];
-                Debug.LogError("text changed");
+        ChangeText(textIndex);
 
-                // Call the manager to change the text
-                EventSystem.Instance.ChangeText(currentText);
-            }
+        if (CheckReachClickCount())
+            EndText();                
+    
+    }
 
-            if (clicked == clickCount)
+
+    protected virtual void ChangeText(int textIndex)
+    {
+        if (textIndex < txtData.LocalizedTexts.Length)
+        {
+            if (!TextEnabled())
             {
-                // Tell the manager that this text is done
-                EventSystem.Instance.EndText();
-                Debug.LogError("this text is done");
-                if (trigger != null)
-                    trigger.SetActive(false);
+                Debug.LogError("An error occured");
+                return;
             }
+            
+            currentText = txtData.LocalizedTexts[textIndex];
+            // Call the manager to change the text
+            events.ChangeText(currentText);
         }
     }
 
-
-    protected void HideText(int id)
+    protected virtual void EndText()
     {
-        if (CanToggleText(id, false))
+        // Tell the manager that this text is done
+            events.EndText();
+            if (trigger != null)
+                trigger.SetActive(false);
+    }
+
+    protected virtual void HideText(int id)
+    {
+        if (CheckId(id) && CanToggleText(false))
         {
             // Call the manager to hide the text
-            EventSystem.Instance.HideText();
-            Debug.LogError("text hid");
+            events.HideText();
             isHidden = true;
         }
     }
 
-    protected void ShowText(int id)
+    protected virtual void ShowText(int id)
     {
-        if (CanToggleText(id, true))
+        if (CheckId(id) && CanToggleText(true))
         {
             // Call the managere to show the text
-            EventSystem.Instance.ShowText(currentText);
-            Debug.LogError("text showed");
+            events.ShowText(currentText);
             isHidden = false;
         }
     }
 
+    protected void IncreaseClicked() =>
+        clicked++;
 
-    protected bool CanToggleText(int id, bool targetHiddenState) =>
+    protected bool CanToggleText(bool targetHiddenState) =>
     
-        this.id == id && targetHiddenState == isHidden && TextEnabled(txtData);
-    
+        targetHiddenState == isHidden && TextEnabled();
 
-    protected bool TextEnabled(TextsData texts) =>
-        texts != null && texts.LocalizedTexts.Any(t => t != null);
+    protected bool TextEnabled() =>
+        txtData?.LocalizedTexts != null && txtData.LocalizedTexts.Length != 0 && txtData.LocalizedTexts.Any(t => t != null);
 
+    protected bool CheckId(int id) =>
+        id == this.id;
+
+    protected bool CheckReachClickCount() =>
+        clicked >= clickCount;
 }
