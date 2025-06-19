@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 
-public class TemporaryTextManager : MonoBehaviour
+public class TextManager : MonoBehaviour
 {
     [SerializeField] private Text currentText;
     [SerializeField] private LocalizeStringEvent currentLocalizationEvent;
@@ -33,8 +33,13 @@ public class TemporaryTextManager : MonoBehaviour
 
     private void ChangeText(LocalizedString localizedText)
     {
-        if (CheckWorkability())
-            currentLocalizationEvent.StringReference = localizedText;
+        if (!CheckWorkability())
+            return;
+
+        currentLocalizationEvent.StringReference = localizedText;
+        if (currentText.enabled == false)
+            currentText.enabled = true;
+
     }
 
     private void HideText()

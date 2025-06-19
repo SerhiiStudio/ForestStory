@@ -10,21 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 802a8eaffb212dc4ca14784949882082, type: 3}
-  m_Name: TextsDataAsset
+  m_Name: C1D1 Bed - before read
   m_EditorClassIdentifier: 
   localizedStr:
   - m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:f974c076125e2c544a116a0fc145de0a
     m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  - m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 346425085718528
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
