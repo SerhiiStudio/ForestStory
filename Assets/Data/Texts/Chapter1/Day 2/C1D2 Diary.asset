@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 802a8eaffb212dc4ca14784949882082, type: 3}
-  m_Name: C1D1 Diary
+  m_Name: C1D2 Diary
   m_EditorClassIdentifier: 
   localizedStr:
   - m_TableReference:
       m_TableCollectionName: GUID:f974c076125e2c544a116a0fc145de0a
     m_TableEntryReference:
-      m_KeyId: 324201532420096
+      m_KeyId: 2529911234162688
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   - m_TableReference:
       m_TableCollectionName: GUID:f974c076125e2c544a116a0fc145de0a
     m_TableEntryReference:
-      m_KeyId: 325146488139776
+      m_KeyId: 2530025210179584
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -32,15 +32,7 @@ MonoBehaviour:
   - m_TableReference:
       m_TableCollectionName: GUID:f974c076125e2c544a116a0fc145de0a
     m_TableEntryReference:
-      m_KeyId: 335216076713984
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  - m_TableReference:
-      m_TableCollectionName: GUID:f974c076125e2c544a116a0fc145de0a
-    m_TableEntryReference:
-      m_KeyId: 335683116658688
+      m_KeyId: 2530105975697408
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

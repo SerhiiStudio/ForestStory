@@ -42,9 +42,8 @@ public class BaseTextOwner : MonoBehaviour
 
     protected void Start()
     {
-        int length = txtData?.LocalizedTexts?.Length ?? 0;  // Define clickCount based on lenght of localized strings
-        clickCount = (length == 1) ? 2 : length; 
-        Debug.Log(clickCount);
+        int length = txtData?.LocalizedTexts?.Length ?? 0; // Define clickCount based on lenght of localized strings
+        clickCount = length;
     }
 
     /// <summary>
@@ -61,13 +60,14 @@ public class BaseTextOwner : MonoBehaviour
         if (!CheckId(id))
             return;
         
-        IncreaseClicked();
+        
             
         ChangeText(ExtractIndex());
 
         if (CheckReachClickCount())
-            EndText();                
-    
+            EndText();   
+
+        IncreaseClicked();
     }
 
 
@@ -121,7 +121,7 @@ public class BaseTextOwner : MonoBehaviour
     }
 
     protected virtual int ExtractIndex() =>
-        clicked - 1;
+        clicked;
 
     protected void IncreaseClicked() =>
         clicked++;

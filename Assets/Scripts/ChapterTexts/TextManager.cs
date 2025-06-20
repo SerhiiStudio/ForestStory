@@ -49,8 +49,11 @@ public class TextManager : MonoBehaviour
 
     private void HideText()
     {
-        if (CheckWorkability())
-            currentText.enabled = false;
+        if (!CheckWorkability())
+            return;
+        currentText.text = "";
+
+        currentText.enabled = false;
     }
 
     private void ShowText(LocalizedString localizedText)
