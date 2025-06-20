@@ -109,7 +109,7 @@ public class BaseTextOwner : MonoBehaviour
 
     protected virtual void ShowText(int id)
     {
-        if (CheckId(id) && CanToggleText(true))
+        if (CheckId(id) && CanToggleText(true) && currentText != null)
         {
             // Call the managere to show the text
             events.ShowText(currentText);

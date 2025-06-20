@@ -36,7 +36,12 @@ public class TextManager : MonoBehaviour
         if (!CheckWorkability())
             return;
 
-        currentLocalizationEvent.StringReference = localizedText;
+        localizedText.GetLocalizedStringAsync().Completed += context => 
+        {
+            string localizedStr = context.Result;
+            currentText.text = localizedStr;
+        };
+
         if (currentText.enabled == false)
             currentText.enabled = true;
 
@@ -52,7 +57,11 @@ public class TextManager : MonoBehaviour
     {
         if (CheckWorkability())
         {
-            currentLocalizationEvent.StringReference = localizedText;
+            localizedText.GetLocalizedStringAsync().Completed += context =>
+            {
+                string localizedStr = context.Result;
+                currentText.text = localizedStr;
+            };
             currentText.enabled = true;
         }
     }

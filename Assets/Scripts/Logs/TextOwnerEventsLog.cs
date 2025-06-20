@@ -38,7 +38,16 @@ public class TextOwnerEvents : MonoBehaviour
     }
     public void ShowText(LocalizedString localizedText)
     {
-        if (OnShowText) Debug.Log("Text showed: " + localizedText);
+        if (OnShowText)
+        { 
+            Debug.Log("Text showed: " + localizedText);
+/*
+            Debug.Log("Table: " + localizedText.TableReference);
+            Debug.Log("Entry: " + localizedText.TableEntryReference);
+            Debug.Log("Text showed: " + localizedText);
+            Debug.Log("Text hash: " + localizedText.GetHashCode());*/
+        }
+
     }
     public void EndText() 
     {
