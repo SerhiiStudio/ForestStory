@@ -62,10 +62,8 @@ public class BaseTextOwner : MonoBehaviour
             return;
         
         IncreaseClicked();
-
-        int textIndex = clicked - 1;
             
-        ChangeText(textIndex);
+        ChangeText(ExtractIndex());
 
         if (CheckReachClickCount())
             EndText();                
@@ -75,19 +73,24 @@ public class BaseTextOwner : MonoBehaviour
 
     protected virtual void ChangeText(int textIndex)
     {
-        if (textIndex < txtData.LocalizedTexts.Length)
+        if (!TextEnabled())
         {
-            if (!TextEnabled())
-            {
                 Debug.LogError("An error occured");
                 return;
-            }
-            
+        }
+        if (CheckLengthLimit(textIndex))
+        {
             currentText = txtData.LocalizedTexts[textIndex];
             // Call the manager to change the text
-            events.ChangeText(currentText);
+            CallChangeText();
         }
     }
+
+    protected virtual bool CheckLengthLimit(int textIndex) =>
+        textIndex < txtData.LocalizedTexts.Length;
+
+    protected virtual void CallChangeText() =>
+        events.ChangeText(currentText);
 
     protected virtual void EndText()
     {
@@ -116,6 +119,9 @@ public class BaseTextOwner : MonoBehaviour
             isHidden = false;
         }
     }
+
+    protected virtual int ExtractIndex() =>
+        clicked - 1;
 
     protected void IncreaseClicked() =>
         clicked++;
