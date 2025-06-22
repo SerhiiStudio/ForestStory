@@ -4,5 +4,6 @@ public enum AudioType
 	Event,
 	Enviroment,
 	Player,
-	Iteraction
+	Iteraction,
+	Speech,
 }
