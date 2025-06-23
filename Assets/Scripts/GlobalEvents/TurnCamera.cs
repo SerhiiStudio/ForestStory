@@ -38,7 +38,6 @@ public class TurnCamera : MonoBehaviour
 
 	public void TurnCamera_ (Transform transform_)
 	{
-		Debug.Log("SOmething in turn camera");
 		Vector3 position = new Vector3(transform_.position.x, transform_.position.y, CAMERA_OFF_SET);
 		_camera.transform.position = position;
 	}

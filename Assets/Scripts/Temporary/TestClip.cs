@@ -18,7 +18,6 @@ public class TestClip : MonoBehaviour
         input_.Enable();
 
         input_.Test.Test.performed += ActivateAudioEvent;
-        input_.Test.Test.started += ctx => { Debug.Log("Yeah"); };
     }
     private void OnDisable()
     {
@@ -30,6 +29,6 @@ public class TestClip : MonoBehaviour
     private void ActivateAudioEvent(InputAction.CallbackContext ctx)
     {
         EventSystem.Instance.PlayAudio(clipasset);
-        Debug.Log("Played");
+        Debug.Log("played");
     }
 }

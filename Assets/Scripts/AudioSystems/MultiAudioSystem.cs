@@ -12,10 +12,8 @@ public class MultiAudioSystem : AudioSystemBase
 
     public override void Play(AudioClipAsset clipAsset)
     {
-      Debug.Log("99999999999999999");
          if (CanPlay(clipAsset))
          {
-            Debug.Log(CanPlay(clipAsset));
             var source = DetermiteFreeSource(clipAsset);
             SetSourcePlay(source, clipAsset.Clip);
          }

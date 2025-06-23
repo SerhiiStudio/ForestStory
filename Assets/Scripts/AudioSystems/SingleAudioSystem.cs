@@ -9,8 +9,6 @@ public class SingleAudioSystem : AudioSystemBase
 
     public override void Play(AudioClipAsset clipAsset)
     {
-        Debug.Log(audioSource != null);
-        Debug.Log(clipAsset != null);
         if (CanPlay(clipAsset) && CheckAudioType(clipAsset.Type))
         {
             SetAudio(clipAsset);
