@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e26fc3b84682f54eb73e84f48b8add3, type: 3}
   m_Name: Gas
   m_EditorClassIdentifier: 
-  type: -1
-  clip: {fileID: 8300000, guid: 6bcdafcd701350941bafcd2dc700c5b5, type: 3}
+  Type: 3
+  Clip: {fileID: 8300000, guid: 6bcdafcd701350941bafcd2dc700c5b5, type: 3}

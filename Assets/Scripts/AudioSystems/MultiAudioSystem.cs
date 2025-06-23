@@ -5,16 +5,50 @@ using System.Linq;
 
 public class MultiAudioSystem : AudioSystemBase
 {
-   // [SerializeField] protected AudioType audioType;
-    [SerializeField] protected AudioSource[] audioSource;
+    [SerializeField] protected GameObject audioSourceContainer;  
+    [SerializeField] protected List<AudioSource> audioSources;
 
     protected EventSystem events => EventSystem.Instance;
 
     public override void Play(AudioClipAsset clipAsset)
     {
+      Debug.Log("99999999999999999");
+         if (CanPlay(clipAsset))
+         {
+            Debug.Log(CanPlay(clipAsset));
+            var source = DetermiteFreeSource(clipAsset);
+            SetSourcePlay(source, clipAsset.Clip);
+         }
+    }
 
+    protected AudioSource DetermiteFreeSource(AudioClipAsset clipAsset)
+    {
+         AudioSource source = null;
+
+         foreach(var aSource in audioSources)
+         {
+            if (aSource.isPlaying)
+               continue;
+
+            source = aSource;
+            break;
+         }
+
+         if (source == null)
+         {
+            source = audioSourceContainer.AddComponent<AudioSource>();
+            audioSources.Add(source);
+         }
+
+         return source;
+    }
+
+    protected void SetSourcePlay(AudioSource source, AudioClip clip)
+    {
+      source.clip = clip;
+      source.Play();
     }
 
     protected override bool CanPlay(AudioClipAsset clipAsset) =>
-        audioSource.All(a => a != null) && clipAsset != null;
+        audioSources.All(a => a != null) && clipAsset?.Clip != null;
 }

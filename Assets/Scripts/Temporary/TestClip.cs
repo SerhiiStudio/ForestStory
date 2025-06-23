@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class TestClip : MonoBehaviour
 {
-    [SerializeField] private AudioType type;
     [SerializeField] private AudioClipAsset clipasset;
     private PlayerInput input_;
 

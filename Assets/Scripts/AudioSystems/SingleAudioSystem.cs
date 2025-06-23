@@ -27,5 +27,5 @@ public class SingleAudioSystem : AudioSystemBase
 
 
     protected override bool CanPlay(AudioClipAsset clipAsset) =>
-        audioSource != null && clipAsset != null;
+        audioSource != null && clipAsset?.Clip != null;
 }

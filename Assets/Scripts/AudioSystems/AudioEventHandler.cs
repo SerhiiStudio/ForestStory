@@ -11,6 +11,7 @@ public class AudioEventHandler : MonoBehaviour
     {
         foreach(var system in audioSystems)
         {
+            if (events != null && system != null)
             events.PlayAudioEvent += system.Play;
         }
     }
@@ -18,6 +19,7 @@ public class AudioEventHandler : MonoBehaviour
     {
         foreach(var system in audioSystems)
         {
+            if (events != null && system != null)
             events.PlayAudioEvent -= system.Play;
         }
     }
