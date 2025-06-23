@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class BaseItem : MonoBehaviour
+public class Item : MonoBehaviour
 {
 	[Header("\n\n-----------------------------------\n" +
 		"Must be identical to text/trigger id")]
@@ -17,55 +17,57 @@ public abstract class BaseItem : MonoBehaviour
 	public ItemData ItemData => itemData;
 
 
-	protected virtual void Take(int id)
+	protected virtual void TryTake(int externalId)
 	{
-		if (id == this.id)
-		{
+		if (CheckId(externalId))
+			HandleTake();
+	}
 
-			if (itemData.playSoundOnPickup)
-				EventSystem.Instance.PlayAudio(itemData.takeItemSound);
+	protected virtual void HandleTake()
+	{
+		TryPlayAudio(itemData.playSoundOnPickup);
+		StartAnimationCoroutine();
+		if (collectToInventory)
+			TakeToInventory();
+	}
 
-			StartAnimationCoroutine();
+	protected bool CheckId(int id) =>
+		id == this.id;
 
-
-			// If item is supposed to be in inventory
-			if (collectToInventory)
-			{
-				if (itemData != null)
-					TakeToInventory();
-				else
-					Debug.LogWarning("The item should be picked to inventory but the data is null");
-
-				return;
-			}
-		}
+	protected void TryPlayAudio(bool play)
+	{
+		if (play)
+			EventSystem.Instance.PlayAudio(itemData.takeItemSound);
 	}
 
 	protected virtual void TakeToInventory()
 	{
-		EventSystem.Instance.TakeItemToInventory(itemData);
+		if (itemData != null)
+			EventSystem.Instance.TakeItemToInventory(itemData);
+		else
+			Debug.LogWarning("The item should be picked to inventory but the data is null");
 	}
 
 	protected void OnEnable()
 	{
-		EventSystem.Instance.TakeItemEvent += Take;
+		EventSystem.Instance.TakeItemEvent += TryTake;
 	}
 	protected void OnDisable()
 	{
-		EventSystem.Instance.TakeItemEvent -= Take;
+		EventSystem.Instance.TakeItemEvent -= TryTake;
 	}
 
 	protected void StartAnimationCoroutine()
 	{
 		StartCoroutine(AnimationCoroutine());
 	}
-	protected IEnumerator AnimationCoroutine()
+	protected virtual IEnumerator AnimationCoroutine()
 	{
 		animator.Play(ItemAnimationConstants.Disappear);
-		yield return null;
+		yield return null; // Place for extencions
 	}
 
-	protected void Destroy()
+	protected void DestroySelf()
 	{
 		Destroy(gameObject);
 	}
