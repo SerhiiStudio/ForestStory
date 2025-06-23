@@ -35,6 +35,7 @@ public class DayOpening : MonoBehaviour
 		yield return wait;
 
 		EventSystem.Instance.TurnCamera(lookAt);
+		if (displacePlayerAt != null)
 		EventSystem.Instance.DisplacePlayer(displacePlayerAt);
 
 		coroutine = null;

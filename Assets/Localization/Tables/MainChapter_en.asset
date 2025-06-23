@@ -19,9 +19,44 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 54004609024
-    m_Localized: 'I will eat apple
-
-'
+    m_Localized: I'll have an apple for breakfast... Maybe I'll pick berries in the
+      forest..
+    m_Metadata:
+      m_Items: []
+  - m_Id: 324201532420096
+    m_Localized: November 5, 2006. Quarter 6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 325146488139776
+    m_Localized: Taxus baccata - traces of gnawing on the trunk and notches from
+      blows with sharp objects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 335216076713984
+    m_Localized: Scots pine - 90% needle loss. Common aspen...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 335683116658688
+    m_Localized: I want to sleep, I'll finish reading it tomorrow.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 346425085718528
+    m_Localized: Before I go to sleep I have to make sure I write in my diary.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 346652391829504
+    m_Localized: Lord, I can't feel my legs. Give me warm weather and a bright day
+      tomorrow.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 758950063304704
+    m_Localized: It's already warm enough in the room. Hmm, I didn't expect autumn
+      to come so cold.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760725050814464
+    m_Localized: I'll take it with me tomorrow. Good firewood will come out of the
+      pine tree!
     m_Metadata:
       m_Items: []
   references:
