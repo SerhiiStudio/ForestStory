@@ -60,9 +60,12 @@ public class EventSystem : MonoBehaviour
 // Affect camera
 //--------------------
 	public event Action<Transform> TurnCameraEvent;
+	public event Action<float> TurnCameraByXEvent;
 //--------------------
 	public void TurnCamera(Transform transform)=>
 		TurnCameraEvent?.Invoke(transform);
+	public void TurnCameraByX(float x) =>
+		TurnCameraByXEvent?.Invoke(x);
 //--------------------
 
 

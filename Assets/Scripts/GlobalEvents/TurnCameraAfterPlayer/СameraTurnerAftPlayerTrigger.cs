@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class СameraTurnerAftPlayerTrigger : MonoBehaviour
+public class CameraTurnerAftPlayerTrigger : MonoBehaviour
 {
-    private event Action<float> onZoneEnter; // Vill return
+    private event Action<float> onZoneExit; // Vill return
     private float timeTreshold = 0.2f;
 
     private Coroutine coroutine;
@@ -13,10 +13,10 @@ public class СameraTurnerAftPlayerTrigger : MonoBehaviour
 
 
     public void SubscribeForTriggerExit(Action<float> methodAction) =>
-        onZoneEnter += methodAction;
+        onZoneExit += methodAction;
 
     public void UnsubscribeForTriggerExit(Action<float> methodAction) =>
-        onZoneEnter -= methodAction;
+        onZoneExit -= methodAction;
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -36,6 +36,6 @@ public class СameraTurnerAftPlayerTrigger : MonoBehaviour
         yield return wait;
 
         float xPlayerPosition = playersTransform.position.x;
-        onZoneEnter?.Invoke(xPlayerPosition); // Invoke the event
+        onZoneExit?.Invoke(xPlayerPosition); // Invoke the event
     } 
 }

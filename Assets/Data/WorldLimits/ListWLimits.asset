@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ListWLimits
   m_EditorClassIdentifier: 
   limitList:
+  - left: 37
+    right: 140
   - left: -80.77
     right: -68.59
   - left: -0.3699875
     right: 11.81001
-  - left: 37
-    right: 140
   - left: -560.7
     right: 1308.4
