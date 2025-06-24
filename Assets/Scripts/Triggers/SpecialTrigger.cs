@@ -44,15 +44,6 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 
 
 
-	private void TryDestroyTrigger()
-	{/*
-		if (audioCoroutine == null && animatorCoroutine == null && disablingPlayerCoroutine == null && dayTransitionCoroutine == null
-			&& activateGameObjectsCoroutine == null && deactivateGameObjectsCoroutine == null)
-		{
-			Destroy(gameObject);
-		}*/
-	}
-
 	private void OnTriggerEnter2D(Collider2D other)
 	{
 		uEvent?.Invoke(); // Activate the delegate
@@ -81,9 +72,7 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 
 		EventSystem.Instance.PlayAudio(clip);
 
-		audioCoroutine = null; // When coroutine ended our system to know if all coroutines are null
-
-		TryDestroyTrigger(); // If all coroutines have been ended
+		audioCoroutine = null;
 	}
 
 	public void PlayAnimator()
@@ -112,8 +101,6 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 		}
 
 		animatorCoroutine = null;
-
-		TryDestroyTrigger();
 	}
 
 	public void DisableEnablePlayerMovement()
@@ -136,8 +123,6 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 		}
 
 		disablingPlayerCoroutine = null;
-
-		TryDestroyTrigger();
 	}
 
 	public void TransiteDay()
@@ -156,8 +141,6 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 			EventSystem.Instance.EnableOrDisablePlayerMovement(false);
 
 		dayTransitionCoroutine = null;
-
-		TryDestroyTrigger();
 	}
 
 	public void ActivateGameObject()
@@ -179,8 +162,6 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 		}
 
 		activateGameObjectsCoroutine = null;
-
-		TryDestroyTrigger();
 	}
 
 	public void DeactivateGameObjects()
@@ -203,7 +184,5 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 		}
 
 		deactivateGameObjectsCoroutine = null;
-
-		TryDestroyTrigger();
 	}
 }
