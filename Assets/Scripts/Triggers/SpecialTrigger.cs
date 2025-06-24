@@ -45,12 +45,12 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 
 
 	private void TryDestroyTrigger()
-	{
+	{/*
 		if (audioCoroutine == null && animatorCoroutine == null && disablingPlayerCoroutine == null && dayTransitionCoroutine == null
 			&& activateGameObjectsCoroutine == null && deactivateGameObjectsCoroutine == null)
 		{
 			Destroy(gameObject);
-		}
+		}*/
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
