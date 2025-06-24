@@ -5,23 +5,13 @@ using System;
 
 public class CameraAftPlayerTurner : MonoBehaviour
 {
-    [SerializeField] private CameraPlace[] cameraPlaces; // Boundary is left inclusive so if first right and next left are the same use fRight - 0.01f
     [SerializeField] private CameraTurnerAftPlayerTrigger[]  triggers;
+    [SerializeField] private Camera cam;
 
     private float onEnableTreshold = 0.6f; // Approximate time indeed
 
-
-    [Serializable] 
-    private struct CameraPlace
-    {
-        public float xCameraPlace;
-        public float leftBorderValue;
-        public float rightBorderValue; 
-    }
-
     private void OnEnable() => StartCoroutine(SubscribeCoroutine());
     private void OnDisable() => Unsubscribe();
-    private void Start() => FixBorderOverlaps();
     
 
     private IEnumerator SubscribeCoroutine()
@@ -35,45 +25,31 @@ public class CameraAftPlayerTurner : MonoBehaviour
 
     private void Unsubscribe()
     {
-        foreach(var trigger in triggers)
-            trigger.UnsubscribeForTriggerExit(OnTriggerExitHandler);
+        if (triggers != null)
+            foreach(var trigger in triggers)
+                if (trigger != null)
+                    trigger.UnsubscribeForTriggerExit(OnTriggerExitHandler);
     }
 
-    private void OnTriggerExitHandler(float xPosition)
+    private void OnTriggerExitHandler(int direction)
     {
-        var place = DeterminePlace(xPosition);
-        if (place != null)
+        if (cam != null)
         {
-            float x = place.Value.xCameraPlace;
-            TurnCameraToPlace(x);
-            Debug.Log("Turned");
+            var transform = MoveCameraOneFrustum(cam, direction);
+            TurnCameraToPlace(transform);
         }
     }
 
-    private void TurnCameraToPlace(float x) =>
-        EventSystem.Instance.TurnCameraByX(x);
-    
-
-    private CameraPlace? DeterminePlace(float xPosition)
+    private Vector3 MoveCameraOneFrustum(Camera cam, int direction)
     {
-        foreach(var place in cameraPlaces)
-        {
-            if (place.leftBorderValue <= xPosition && place.rightBorderValue >= xPosition)
-                return place;
-        }
+        float height = cam.orthographicSize * 2f;
+        float width = height * cam.aspect;
 
-        return null;
+        Vector3 pos = cam.transform.position;
+        pos.x += direction * width;
+        return pos;
     }
 
-    private void FixBorderOverlaps()
-    {
-        for(int i = 1; i < cameraPlaces.Length; i++)
-        {
-            ref var placeA = ref cameraPlaces[i-1].rightBorderValue;
-            ref var placeB = ref cameraPlaces[i].leftBorderValue;
-
-            if(placeA == placeB)
-                placeA -= 0.01f;
-        }
-    }
+    private void TurnCameraToPlace(Vector3 vector) =>
+        cam.transform.position = vector;
 }

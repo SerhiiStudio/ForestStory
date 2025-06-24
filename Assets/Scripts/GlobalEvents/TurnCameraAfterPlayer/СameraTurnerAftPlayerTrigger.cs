@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class CameraTurnerAftPlayerTrigger : MonoBehaviour
 {
-    private event Action<float> onZoneExit; // Vill return
+    private event Action<int> onZoneExit;
     private float timeTreshold = 0.2f;
 
     private Coroutine coroutine;
 
 
 
-    public void SubscribeForTriggerExit(Action<float> methodAction) =>
+    public void SubscribeForTriggerExit(Action<int> methodAction) =>
         onZoneExit += methodAction;
 
-    public void UnsubscribeForTriggerExit(Action<float> methodAction) =>
+    public void UnsubscribeForTriggerExit(Action<int> methodAction) =>
         onZoneExit -= methodAction;
 
     private void OnTriggerExit2D(Collider2D other)
@@ -35,7 +35,8 @@ public class CameraTurnerAftPlayerTrigger : MonoBehaviour
         var wait = new WaitForSeconds(timeTreshold);
         yield return wait;
 
-        float xPlayerPosition = playersTransform.position.x;
-        onZoneExit?.Invoke(xPlayerPosition); // Invoke the event
+        float xPlayerPosition = playersTransform.position.x - transform.position.x;
+        int direction = xPlayerPosition > 0 ? 1 : -1;
+        onZoneExit?.Invoke(direction); // Invoke the event
     } 
 }
