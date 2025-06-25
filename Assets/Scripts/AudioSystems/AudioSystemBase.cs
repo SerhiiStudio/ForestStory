@@ -7,9 +7,13 @@ public abstract class AudioSystemBase : MonoBehaviour
     [Header("Type")]
     [SerializeField] protected AudioType audioType;
 
-    public abstract void Play(AudioClipAsset clipAsset);
+    public abstract void SetAndPlay(AudioClipAsset clipAsset);
+
+    public abstract void Pause(AudioType aType);
+    public abstract void Unpause(AudioType aType);
 
     protected abstract bool CanPlay(AudioClipAsset clipAsset);
+    protected abstract bool CanHandlePausing();
 
     protected bool CheckAudioType(AudioType type) =>
         audioType == type;

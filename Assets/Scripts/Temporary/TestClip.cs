@@ -28,7 +28,7 @@ public class TestClip : MonoBehaviour
 
     private void ActivateAudioEvent(InputAction.CallbackContext ctx)
     {
-        EventSystem.Instance.PlayAudio(clipasset);
+        EventSystem.Instance.SetAndPlayAudio(clipasset);
         Debug.Log("played");
     }
 }

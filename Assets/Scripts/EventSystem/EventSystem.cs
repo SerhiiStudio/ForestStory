@@ -117,10 +117,16 @@ public class EventSystem : MonoBehaviour
 
 // Work with audio
 //--------------------
-	public event Action<AudioClipAsset> PlayAudioEvent;
+	public event Action<AudioClipAsset> SetAndPlayAudioEvent;
+	public event Action<AudioType> PauseAudioSystemEvent;
+	public event Action<AudioType> UnpauseAudioSystemEvent;
 //--------------------
-	public void PlayAudio(AudioClipAsset audioClip) =>
-		PlayAudioEvent?.Invoke(audioClip);
+	public void SetAndPlayAudio(AudioClipAsset audioClip) =>
+		SetAndPlayAudioEvent?.Invoke(audioClip);
+	public void PauseAudioSystem(AudioType aType) =>
+		PauseAudioSystemEvent?.Invoke(aType);
+	public void UnpauseAudioSystem(AudioType aType) =>
+		UnpauseAudioSystemEvent?.Invoke(aType);
 //--------------------
 
 

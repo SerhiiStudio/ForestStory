@@ -6,4 +6,6 @@ public enum AudioType
 	Player,
 	Iteraction,
 	Speech,
+	Background,
+	Subbackground,
 }

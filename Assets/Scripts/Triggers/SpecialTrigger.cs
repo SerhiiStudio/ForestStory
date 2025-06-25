@@ -70,7 +70,7 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 		WaitForSeconds clipWait = new WaitForSeconds(clipDelay);
 		yield return clipWait;
 
-		EventSystem.Instance.PlayAudio(clip);
+		EventSystem.Instance.SetAndPlayAudio(clip);
 
 		audioCoroutine = null;
 	}

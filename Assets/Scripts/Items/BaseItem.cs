@@ -37,7 +37,7 @@ public class Item : MonoBehaviour
 	protected void TryPlayAudio(bool play)
 	{
 		if (play)
-			EventSystem.Instance.PlayAudio(itemData.takeItemSound);
+			EventSystem.Instance.SetAndPlayAudio(itemData.takeItemSound);
 	}
 
 	protected virtual void TakeToInventory()

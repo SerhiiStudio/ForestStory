@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8d6f30e3ef21a5429c2f6f00e734f4e, type: 3}
+  m_Name: ListWLimits
+  m_EditorClassIdentifier: 
+  limitList:
+  - left: 50
+    right: 213
+  - left: -80.77
+    right: -68.59
+  - left: -0.3699875
+    right: 11.81001
+  - left: -560.7
+    right: 1308.4

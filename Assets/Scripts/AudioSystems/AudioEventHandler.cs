@@ -12,7 +12,9 @@ public class AudioEventHandler : MonoBehaviour
         foreach(var system in audioSystems)
         {
             if (events != null && system != null)
-            events.PlayAudioEvent += system.Play;
+            {
+                events.SetAndPlayAudioEvent += system.SetAndPlay;
+            }
         }
     }
     private void OnDisable()
@@ -20,7 +22,10 @@ public class AudioEventHandler : MonoBehaviour
         foreach(var system in audioSystems)
         {
             if (events != null && system != null)
-            events.PlayAudioEvent -= system.Play;
-        }
+            {
+                events.SetAndPlayAudioEvent -= system.SetAndPlay;
+            }
+       }
     }
 }
+

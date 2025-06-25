@@ -22,7 +22,7 @@ public class InventorySlot : MonoBehaviour
 	public void UseItem(ItemData data)
 	{
 		if (data.playSoundOnUsing)
-			EventSystem.Instance.PlayAudio(itemData.useItemSound);
+			EventSystem.Instance.SetAndPlayAudio(itemData.useItemSound);
 	}
 
 	public void RemoveItem(ItemData data)
@@ -30,7 +30,7 @@ public class InventorySlot : MonoBehaviour
 		if (data == this.itemData)
 		{
 			if (data.playSoundOnRemoving)
-				EventSystem.Instance.PlayAudio(itemData.removeItemSound);
+				EventSystem.Instance.SetAndPlayAudio(itemData.removeItemSound);
 
 			image.enabled = false;
 			itemData = null;

@@ -10,13 +10,34 @@ public class MultiAudioSystem : AudioSystemBase
 
     protected EventSystem events => EventSystem.Instance;
 
-    public override void Play(AudioClipAsset clipAsset)
+    public override void SetAndPlay(AudioClipAsset clipAsset)
     {
-         if (CanPlay(clipAsset))
+         if (CanPlay(clipAsset) && CheckAudioType(clipAsset.Type))
          {
             var source = DetermiteFreeSource(clipAsset);
             SetSourcePlay(source, clipAsset.Clip);
          }
+    }
+
+    public override void Pause(AudioType aType)
+    {
+        if(CanHandlePausing())
+        {
+            foreach(var srs in audioSources)
+            {
+                srs.Pause();
+            }
+        }
+    }
+    public override void Unpause(AudioType aType)
+    {
+        if(CanHandlePausing())
+        {
+            foreach(var srs in audioSources)
+            {
+                srs.UnPause();
+            }
+        }
     }
 
     protected AudioSource DetermiteFreeSource(AudioClipAsset clipAsset)
@@ -49,4 +70,18 @@ public class MultiAudioSystem : AudioSystemBase
 
     protected override bool CanPlay(AudioClipAsset clipAsset) =>
         audioSources.All(a => a != null) && clipAsset?.Clip != null;
+
+    protected override bool CanHandlePausing()
+    {
+        if(audioSources != null)
+        {
+            foreach(var srs in audioSources)
+            {
+                if (srs == null)
+                    return false;
+            }
+            return true;
+        }
+        return false;
+    }
 }

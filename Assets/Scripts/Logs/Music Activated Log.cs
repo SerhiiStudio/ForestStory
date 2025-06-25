@@ -4,11 +4,11 @@ public class MusicActivatedLog : MonoBehaviour
 {
 	private void OnEnable()
 	{
-		EventSystem.Instance.PlayAudioEvent += Log;
+		EventSystem.Instance.SetAndPlayAudioEvent += Log;
 	}
 	private void OnDisable()
 	{
-		EventSystem.Instance.PlayAudioEvent -= Log;
+		EventSystem.Instance.SetAndPlayAudioEvent -= Log;
 	}
 
 	private void Log(AudioClipAsset audioClip)

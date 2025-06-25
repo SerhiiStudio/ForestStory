@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f2b652685808643bb49f54d74c74e8, type: 3}
+  m_Name: Test Item Speech
+  m_EditorClassIdentifier: 
+  image: {fileID: 0}
+  playSoundOnPickup: 1
+  takeItemSound: {fileID: 11400000, guid: f65fb76aeef198e4690fe102eacc99f2, type: 2}
+  playSoundOnUsing: 0
+  useItemSound: {fileID: 0}
+  playSoundOnRemoving: 0
+  removeItemSound: {fileID: 0}
