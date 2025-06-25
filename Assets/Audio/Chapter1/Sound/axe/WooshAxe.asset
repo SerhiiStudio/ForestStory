@@ -9,15 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d6f30e3ef21a5429c2f6f00e734f4e, type: 3}
-  m_Name: ListWLimits
+  m_Script: {fileID: 11500000, guid: 4e26fc3b84682f54eb73e84f48b8add3, type: 3}
+  m_Name: WooshAxe
   m_EditorClassIdentifier: 
-  limitList:
-  - left: -80.77
-    right: -68.59
-  - left: -0.3699875
-    right: 11.81001
-  - left: 50
-    right: 213
-  - left: -560.7
-    right: 1308.4
+  Type: 3
+  Clip: {fileID: 8300000, guid: 4ef3ce3bc2eb14548ae8e54ddcaca80c, type: 3}
