@@ -1,27 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-190257061426691061
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
-  m_Name: LiftGammaGain
-  m_EditorClassIdentifier: 
-  active: 1
-  lift:
-    m_OverrideState: 1
-    m_Value: {x: 0.99527717, y: 1, z: 0.96543545, w: 0}
-  gamma:
-    m_OverrideState: 1
-    m_Value: {x: 0.89088494, y: 0.9489476, z: 1, w: 0}
-  gain:
-    m_OverrideState: 1
-    m_Value: {x: 0.9987388, y: 0.8821718, z: 1, w: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35,25 +13,7 @@ MonoBehaviour:
   m_Name: Volume Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 5470044422981210382}
   - {fileID: 7709971816806129473}
-  - {fileID: -190257061426691061}
---- !u!114 &5470044422981210382
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
-  m_Name: ChromaticAberration
-  m_EditorClassIdentifier: 
-  active: 1
-  intensity:
-    m_OverrideState: 1
-    m_Value: 0.104
 --- !u!114 &7709971816806129473
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -68,13 +28,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   redOutRedIn:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 56
   redOutGreenIn:
     m_OverrideState: 1
-    m_Value: -125
+    m_Value: -130
   redOutBlueIn:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: -25
   greenOutRedIn:
     m_OverrideState: 0
