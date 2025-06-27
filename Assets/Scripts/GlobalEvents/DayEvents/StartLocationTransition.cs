@@ -3,7 +3,11 @@ using UnityEngine;
 public class StartLocationTransition : MonoBehaviour
 {
 	[SerializeField] private int id;
+<<<<<<< HEAD:Assets/Scripts/GlobalEvents/DayEvents/StartLocationTransition.cs
 	[SerializeField] private Locations location;
+=======
+	[SerializeField] private Locations day;
+>>>>>>> origin/master:Assets/Scripts/GlobalEvents/DayEvents/StartDayTransition.cs
 	[SerializeField] private int clickCount;
 	private int clicks;
 
@@ -22,7 +26,11 @@ public class StartLocationTransition : MonoBehaviour
 		{
 			clicks++;
 			if (clickCount == clicks)
+<<<<<<< HEAD:Assets/Scripts/GlobalEvents/DayEvents/StartLocationTransition.cs
 			EventSystem.Instance.StartLocationTransition(location);
+=======
+			EventSystem.Instance.StartLocationTransition(day);
+>>>>>>> origin/master:Assets/Scripts/GlobalEvents/DayEvents/StartDayTransition.cs
 		}
 	}
 }

@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class LocationOpening : MonoBehaviour
 {
+<<<<<<< HEAD:Assets/Scripts/GlobalEvents/DayEvents/LocationOpening.cs
 	[Header("location")]
 	[SerializeField] private Locations location;
+=======
+	[Header("Day")]
+	[SerializeField] private Locations day;
+>>>>>>> origin/master:Assets/Scripts/GlobalEvents/DayEvents/DayOpening.cs
 	[SerializeField] private Transform lookAt;
 	[SerializeField] private Transform displacePlayerAt;
 	private Coroutine coroutine;
@@ -21,7 +26,11 @@ public class LocationOpening : MonoBehaviour
 		EventSystem.Instance.LocationTransitionStarted -= StartOpening;
 	}
 
+<<<<<<< HEAD:Assets/Scripts/GlobalEvents/DayEvents/LocationOpening.cs
 	private void StartOpening(Locations location)
+=======
+	private void StartOpening(Locations day)
+>>>>>>> origin/master:Assets/Scripts/GlobalEvents/DayEvents/DayOpening.cs
 	{
 		if (coroutine == null && location == this.location)
 			coroutine = StartCoroutine(OpeningVid());
