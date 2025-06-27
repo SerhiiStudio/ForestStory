@@ -29,14 +29,15 @@ public class DayOpening : MonoBehaviour
 
 	private IEnumerator OpeningVid()
 	{
-		Debug.Log("SOmething");
 		WaitForSeconds wait = new WaitForSeconds(timeVIdeoIsGoing);
 
 		yield return wait;
 
-		EventSystem.Instance.TurnCamera(lookAt);
+		if(lookAt != null)
+			EventSystem.Instance.TurnCamera(lookAt);
+
 		if (displacePlayerAt != null)
-		EventSystem.Instance.DisplacePlayer(displacePlayerAt);
+			EventSystem.Instance.DisplacePlayer(displacePlayerAt);
 
 		coroutine = null;
 
