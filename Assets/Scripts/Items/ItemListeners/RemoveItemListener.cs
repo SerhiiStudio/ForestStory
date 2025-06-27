@@ -7,7 +7,7 @@ public class RemoveItemListener : AbsItemListener
 	{
 		if (id == this.id)
 		{
-			if (EventSystem.Instance.TakeItemOffInventory(data))
+			if ((EventSystem.Instance?.TakeItemOffInventory(data) ?? false) && data != null)
 			{
 				EventSystem.Instance.ItemSuccessfullyRemoved(id);
 			}
