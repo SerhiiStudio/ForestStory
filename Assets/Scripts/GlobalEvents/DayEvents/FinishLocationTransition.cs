@@ -4,6 +4,7 @@ public class FinishlocationTransition : MonoBehaviour
 {
 	[SerializeField] private int id;
 	[SerializeField] private Locations location;
+
 	[SerializeField] private int clickCount;
 	private int clicks;
 
@@ -22,6 +23,7 @@ public class FinishlocationTransition : MonoBehaviour
 		{
 			clicks++;
 			if (clickCount == clicks)
+
 				EventSystem.Instance.NotifyLocationTransitionEnded(location);
 		}
 	}

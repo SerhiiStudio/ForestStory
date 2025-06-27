@@ -21,7 +21,9 @@ public class LocationOpening : MonoBehaviour
 		EventSystem.Instance.LocationTransitionStarted -= StartOpening;
 	}
 
+
 	private void StartOpening(Locations location)
+
 	{
 		if (coroutine == null && location == this.location)
 			coroutine = StartCoroutine(OpeningVid());

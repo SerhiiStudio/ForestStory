@@ -3,6 +3,7 @@ using UnityEngine;
 public class StartLocationTransition : MonoBehaviour
 {
 	[SerializeField] private int id;
+
 	[SerializeField] private Locations location;
 	[SerializeField] private int clickCount;
 	private int clicks;
