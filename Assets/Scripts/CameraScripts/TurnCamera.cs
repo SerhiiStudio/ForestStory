@@ -4,8 +4,8 @@ using UnityEngine;
 public class TurnCamera : MonoBehaviour
 {
 	[SerializeField] private Camera _camera;
-	[SerializeField] private List<Transform> daysOpening;
-	[SerializeField] private List<Transform> daysActing;
+	[SerializeField] private List<Transform> locationsOpening;
+	[SerializeField] private List<Transform> locationsActing;
 	private const float CAMERA_OFF_SET = -10f;
 
 	public TurnCamera Instance { get; private set; }
@@ -20,19 +20,19 @@ public class TurnCamera : MonoBehaviour
 
 	private void OnEnable()
 	{
-		EventSystem.Instance.DayTransitionStarted += TurnCamera_;
+		EventSystem.Instance.LocationTransitionStarted += TurnCamera_;
 		EventSystem.Instance.TurnCameraEvent += TurnCamera_;
 	}
 	private void OnDisable()
 	{
-		EventSystem.Instance.DayTransitionStarted -= TurnCamera_;
+		EventSystem.Instance.LocationTransitionStarted -= TurnCamera_;
 		EventSystem.Instance.TurnCameraEvent -= TurnCamera_;
 	}
-	private void TurnCamera_(Days day)
+	private void TurnCamera_(Locations location)
 	{
-		int dayId = (int)day;
-		var currentDayOpening = daysOpening[dayId];
-		Vector3 position = new Vector3(currentDayOpening.position.x, currentDayOpening.position.y, CAMERA_OFF_SET);
+		int locationId = (int)location;
+		var currentlocationOpening = locationsOpening[locationId];
+		Vector3 position = new Vector3(currentlocationOpening.position.x, currentlocationOpening.position.y, CAMERA_OFF_SET);
 		_camera.transform.position = position;
 	}
 

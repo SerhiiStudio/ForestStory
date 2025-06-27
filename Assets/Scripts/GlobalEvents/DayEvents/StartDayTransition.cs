@@ -3,7 +3,7 @@ using UnityEngine;
 public class StartDayTransition : MonoBehaviour
 {
 	[SerializeField] private int id;
-	[SerializeField] private Days day;
+	[SerializeField] private Locations day;
 	[SerializeField] private int clickCount;
 	private int clicks;
 
@@ -22,7 +22,7 @@ public class StartDayTransition : MonoBehaviour
 		{
 			clicks++;
 			if (clickCount == clicks)
-			EventSystem.Instance.StartDayTransition(day);
+			EventSystem.Instance.StartLocationTransition(day);
 		}
 	}
 }

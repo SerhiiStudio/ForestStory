@@ -1,4 +1,4 @@
-public enum Days
+public enum Locations
 {
 	All = -1,
 	First = 0,

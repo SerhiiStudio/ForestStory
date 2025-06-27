@@ -3,7 +3,7 @@ using UnityEngine;
 public class FinishDayTransition : MonoBehaviour
 {
 	[SerializeField] private int id;
-	[SerializeField] private Days day;
+	[SerializeField] private Locations day;
 	[SerializeField] private int clickCount;
 	private int clicks;
 
@@ -22,7 +22,7 @@ public class FinishDayTransition : MonoBehaviour
 		{
 			clicks++;
 			if (clickCount == clicks)
-				EventSystem.Instance.NotifyDayTransitionEnded(day);
+				EventSystem.Instance.NotifyLocationTransitionEnded(day);
 		}
 	}
 }

@@ -46,14 +46,14 @@ public class EventSystem : MonoBehaviour
 	
 // Day transitioning
 //--------------------
-	public event Action<Days> DayTransitionStarted;
-	public event Action<Days> DayTransitionFinished;
+	public event Action<Locations> LocationTransitionStarted;
+	public event Action<Locations> LocationTransitionFinished;
 //--------------------
-	public void StartDayTransition(Days dayToTransitTo) =>
-		DayTransitionStarted?.Invoke(dayToTransitTo);
+	public void StartLocationTransition(Locations locationToTransitTo) =>
+		LocationTransitionStarted?.Invoke(locationToTransitTo);
 
-	public void NotifyDayTransitionEnded(Days daySwitchedTo) =>
-		DayTransitionFinished?.Invoke(daySwitchedTo);
+	public void NotifyLocationTransitionEnded(Locations locationSwitchedTo) =>
+		LocationTransitionFinished?.Invoke(locationSwitchedTo);
 //--------------------
 
 
