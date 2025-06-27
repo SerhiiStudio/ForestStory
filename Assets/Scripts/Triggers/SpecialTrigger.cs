@@ -22,8 +22,8 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 	[SerializeField] private float enablePlayerAfter;
 
 	[Header("Start day transition")]
-	[SerializeField] private Days day;
-	[SerializeField] private float startDayTransitionAfter;
+	[SerializeField] private Locations location;
+	[SerializeField] private float startLocationTransitionAfter;
 	[SerializeField] private bool disablePlayerMovenent;
 
 	[Header("Activate GameObjects")]
@@ -127,15 +127,15 @@ public class SpecialTrigger : MonoBehaviour//, IEnviromentEvent
 
 	public void TransiteDay()
 	{
-		dayTransitionCoroutine = StartCoroutine(DayTransitionCoroutine());
+		dayTransitionCoroutine = StartCoroutine(LocationTransitionCoroutine());
 	}
 
-	private IEnumerator DayTransitionCoroutine()
+	private IEnumerator LocationTransitionCoroutine()
 	{
-		WaitForSeconds dayTransitionWait = new WaitForSeconds(startDayTransitionAfter);
-		yield return dayTransitionWait;
+		WaitForSeconds locationTransitionWait = new WaitForSeconds(startLocationTransitionAfter);
+		yield return locationTransitionWait;
 
-		EventSystem.Instance.StartDayTransition(day);
+		EventSystem.Instance.StartLocationTransition(location);
 
 		if (disablePlayerMovenent)
 			EventSystem.Instance.EnableOrDisablePlayerMovement(false);

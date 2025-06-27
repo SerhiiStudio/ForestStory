@@ -28,7 +28,7 @@ public class EnablePlayerMovement : MonoBehaviour
 	}
 
 	//  We don't need this method so far
-	private void EnableOnDayTransition(Days day) // Choose the way to use enabling frequently
+	private void EnableOnDayTransition(Locations day) // Choose the way to use enabling frequently
 	{
 	}
 }

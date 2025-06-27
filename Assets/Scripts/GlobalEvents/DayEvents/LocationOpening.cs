@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class DayOpening : MonoBehaviour
+public class LocationOpening : MonoBehaviour
 {
-	[Header("Day")]
-	[SerializeField] private Days day;
+	[Header("location")]
+	[SerializeField] private Locations location;
 	[SerializeField] private Transform lookAt;
 	[SerializeField] private Transform displacePlayerAt;
 	private Coroutine coroutine;
@@ -13,17 +13,17 @@ public class DayOpening : MonoBehaviour
 
 	private void OnEnable()
 	{
-		EventSystem.Instance.DayTransitionStarted += StartOpening;
+		EventSystem.Instance.LocationTransitionStarted += StartOpening;
 	}
 
 	private void OnDisable()
 	{
-		EventSystem.Instance.DayTransitionStarted -= StartOpening;
+		EventSystem.Instance.LocationTransitionStarted -= StartOpening;
 	}
 
-	private void StartOpening(Days day)
+	private void StartOpening(Locations location)
 	{
-		if (coroutine == null && day == this.day)
+		if (coroutine == null && location == this.location)
 			coroutine = StartCoroutine(OpeningVid());
 	}
 

@@ -18,14 +18,14 @@ public class WorldLimits : MonoBehaviour
 	}
 
 
-	public void ChangeLimits(Days day)
+	public void ChangeLimits(Locations location)
 	{
-		currentLimitIndx = (int)day;
+		currentLimitIndx = (int)location;
 
 		// while testing
 		Debug.Log(currentLimitIndx);
 		Debug.Log(listWorldLimits.Lenght);
-		Debug.Log("Day changed: " + day);
+		Debug.Log("location changed: " + location);
 		Debug.Log(listWorldLimits[currentLimitIndx].left);
 		Debug.Log(listWorldLimits[currentLimitIndx].right);
 	}
@@ -33,11 +33,11 @@ public class WorldLimits : MonoBehaviour
 
 	private void OnEnable()
 	{
-		EventSystem.Instance.DayTransitionStarted += ChangeLimits;
+		EventSystem.Instance.LocationTransitionStarted += ChangeLimits;
 	}
 
 	private void OnDisable()
 	{
-		EventSystem.Instance.DayTransitionStarted -= ChangeLimits;
+		EventSystem.Instance.LocationTransitionStarted -= ChangeLimits;
 	}
 }
