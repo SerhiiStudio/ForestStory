@@ -5,8 +5,9 @@ public class UseItemListener : AbsItemListener
 	{
 		if (id == this.id)
 		{
-			if (EventSystem.Instance.UseItemInInventory(data))
-				EventSystem.Instance.ItemSuccessfullyUsed(id);
+			bool result = EventSystem.Instance.UseItemInInventory(data);
+			EventSystem.Instance.ItemSuccessfullyUsed(id, result);
+
 		}
 	}
 }

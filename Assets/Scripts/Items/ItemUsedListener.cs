@@ -6,16 +6,22 @@ using UnityEngine.Events;
 public class ItemUsedListener : MonoBehaviour
 {
     [SerializeField] protected int id;
-    [SerializeField] protected UnityEvent actions;
+    [SerializeField] protected UnityEvent actionsOnUsed;
+    [SerializeField] protected UnityEvent actionsOnFaultToUse;
 
-    protected void OnEnable() => EventSystem.Instance.ItemSuccessfullyUsedEvent += ItemUsedHandler;
-    protected void OnDisable() => EventSystem.Instance.ItemSuccessfullyUsedEvent -= ItemUsedHandler;
 
-    protected void ItemUsedHandler(int id)
+    protected void OnEnable() => EventSystem.Instance.ItemUsedEvent += ItemUsedHandler;
+    protected void OnDisable() => EventSystem.Instance.ItemUsedEvent -= ItemUsedHandler;
+
+    protected void ItemUsedHandler(int id, bool result)
     {
         if(!CanHandle(id))
             return;
-        actions?.Invoke();
+
+        if(result)
+            actionsOnUsed?.Invoke();
+        else
+            actionsOnFaultToUse?.Invoke();
         
     }
 

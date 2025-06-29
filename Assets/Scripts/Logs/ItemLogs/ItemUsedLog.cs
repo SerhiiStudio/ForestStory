@@ -5,13 +5,13 @@ using UnityEngine;
 public class ItemUsedLog : MonoBehaviour
 {
     private void OnEnable(){
-        EventSystem.Instance.ItemSuccessfullyUsedEvent += Log_;
+        EventSystem.Instance.ItemUsedEvent += Log_;
     }
     private void OnDisable(){
-        EventSystem.Instance.ItemSuccessfullyUsedEvent -= Log_;
+        EventSystem.Instance.ItemUsedEvent -= Log_;
     }
 
-    private void Log_(int id){
-        Debug.Log("Item successfully used. ID: " + id);
+    private void Log_(int id, bool result){
+        Debug.Log($"Item used. ID: {id}. Result: {result}");
     }
 }
