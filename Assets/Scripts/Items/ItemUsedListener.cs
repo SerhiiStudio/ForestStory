@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class ItemUsedListener : MonoBehaviour
 {
     [SerializeField] protected int id;
-    [SerializeField] protected UnityEvent actionsOnUsed;
-    [SerializeField] protected UnityEvent actionsOnFaultToUse;
+    [SerializeField] protected UnityEvent onSuccess;
+    [SerializeField] protected UnityEvent onFailure;
 
 
     protected void OnEnable() => EventSystem.Instance.ItemUsedEvent += ItemUsedHandler;
@@ -19,9 +19,9 @@ public class ItemUsedListener : MonoBehaviour
             return;
 
         if(result)
-            actionsOnUsed?.Invoke();
+            onSuccess?.Invoke();
         else
-            actionsOnFaultToUse?.Invoke();
+            onFailure?.Invoke();
         
     }
 
