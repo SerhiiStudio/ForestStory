@@ -6,12 +6,24 @@ public class SingleAudioSystem : AudioSystemBase
 {
     [Header("One source")]
     [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected AudioTransition transition;
 
     public override void SetAndPlay(AudioClipAsset clipAsset)
     {
         if (CanPlay(clipAsset) && CheckAudioType(clipAsset.Type))
         {
-            SetAudio(clipAsset);
+            if(transition != null)
+                {
+                    var sourceTransited = transition.Transite(audioSource, clipAsset.Clip);
+
+                    if (sourceTransited != null)
+                    {
+                        audioSource = sourceTransited;
+                        return;
+                    }
+                }
+            
+            SetAudio(clipAsset); // If transition or sourceTransited == null we use different way
         }
     }
 
