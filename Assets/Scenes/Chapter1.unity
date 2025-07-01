@@ -17059,9 +17059,9 @@ GameObject:
   - component: {fileID: 2100459944}
   - component: {fileID: 2100459937}
   - component: {fileID: 2100459940}
-  - component: {fileID: 2100459941}
-  - component: {fileID: 2100459942}
-  - component: {fileID: 2100459943}
+  - component: {fileID: 2100459947}
+  - component: {fileID: 2100459946}
+  - component: {fileID: 2100459945}
   m_Layer: 0
   m_Name: Axe
   m_TagString: Untagged
@@ -17118,51 +17118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 14
---- !u!114 &2100459941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2100459935}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a0f85d3007a03e448f605f91062de81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 14
-  data: {fileID: 11400000, guid: 1b5f588232aa4f241b793f3b05512ec1, type: 2}
---- !u!114 &2100459942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2100459935}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd40209c80fa6f54e96495cd91810745, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 14
-  data: {fileID: 11400000, guid: 1b5f588232aa4f241b793f3b05512ec1, type: 2}
---- !u!114 &2100459943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2100459935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d38311b75b0286a4793f6435c1e9e362, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 14
-  gameObjectsToBlock:
-  - {fileID: 318137462}
-  gameObjectsToUnblock:
-  - {fileID: 1423473525}
 --- !u!114 &2100459944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17179,6 +17134,79 @@ MonoBehaviour:
   animator: {fileID: 2100459937}
   collectToInventory: 1
   itemData: {fileID: 11400000, guid: 6c82d31a9c5b9784face8d08be8da6e7, type: 2}
+--- !u!114 &2100459945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100459935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1a85e90de7957e448d237bbe2c44a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 6c82d31a9c5b9784face8d08be8da6e7, type: 2}
+  actionsIfTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2100459947}
+        m_TargetAssemblyTypeName: BlockerGameObjectOnSuccessfullAction, Assembly-CSharp
+        m_MethodName: ExecuteBlocker
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  actionsOnFault:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2100459946}
+        m_TargetAssemblyTypeName: BlockerGameObjectOnSuccessfullAction, Assembly-CSharp
+        m_MethodName: ExecuteBlocker
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2100459946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100459935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12e316dec562e8c40acb3a171597901d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBlock: []
+  toUnblock: []
+--- !u!114 &2100459947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100459935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bcb16ef1668fdc42a4adbdfcb634a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toBlock:
+  - {fileID: 318137462}
+  toUnblock:
+  - {fileID: 1423473525}
 --- !u!1 &2108160782
 GameObject:
   m_ObjectHideFlags: 0

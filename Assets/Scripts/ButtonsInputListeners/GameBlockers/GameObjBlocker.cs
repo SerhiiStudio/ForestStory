@@ -26,6 +26,8 @@ public class GameObjBlocker : MonoBehaviour
         }
     }
 
+    public void CallBlockers() => CallMethods();
+
     protected virtual void CallMethods()
     {
         BlockGameObjects();

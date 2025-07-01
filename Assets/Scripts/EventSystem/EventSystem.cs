@@ -88,9 +88,10 @@ public class EventSystem : MonoBehaviour
 	public event Action<int, bool> ItemUsedEvent;
 	public event Action<int> ItemSuccessfullyUsedRemovedEvent;
 
+	public event Action<ItemData, bool> ItemAddedEvent;
 	public event Func<ItemData, bool> TakeItemOffInventoryEvent;
 
-	public event Action InventoryFullEvent;
+	public event Action<ItemData> InventoryFullEvent;
 //--------------------
 	public void TakeItem(int id) =>
 		TakeItemEvent?.Invoke(id);
@@ -107,11 +108,14 @@ public class EventSystem : MonoBehaviour
 	public void ItemSuccessfullyRemoved(int id) =>
 		ItemSuccessfullyUsedRemovedEvent?.Invoke(id);
 
+	public void ItemAddedToInventory(ItemData data, bool result) =>
+		ItemAddedEvent?.Invoke(data, result);
+
 	public bool TakeItemOffInventory(ItemData data) =>
 		TakeItemOffInventoryEvent?.Invoke(data) ?? false;
 
-	public void NotifyInventoryFull() =>
-		InventoryFullEvent?.Invoke();
+	public void NotifyInventoryFull(ItemData data) =>
+		InventoryFullEvent?.Invoke(data);
 //--------------------
 
 
