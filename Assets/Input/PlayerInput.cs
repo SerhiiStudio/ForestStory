@@ -214,6 +214,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Background"",
+            ""id"": ""98ff353c-5b83-4aaf-bb08-9b7b01bedf39"",
+            ""actions"": [
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""5d0917fc-7447-4ccb-8274-1f32084d909e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3be59deb-fff9-43bf-a295-9a95ebb9b8d7"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -228,6 +256,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // Test
         m_Test = asset.FindActionMap("Test", throwIfNotFound: true);
         m_Test_Test = m_Test.FindAction("Test", throwIfNotFound: true);
+        // Background
+        m_Background = asset.FindActionMap("Background", throwIfNotFound: true);
+        m_Background_Esc = m_Background.FindAction("Esc", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -431,6 +462,52 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public TestActions @Test => new TestActions(this);
+
+    // Background
+    private readonly InputActionMap m_Background;
+    private List<IBackgroundActions> m_BackgroundActionsCallbackInterfaces = new List<IBackgroundActions>();
+    private readonly InputAction m_Background_Esc;
+    public struct BackgroundActions
+    {
+        private @PlayerInput m_Wrapper;
+        public BackgroundActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Esc => m_Wrapper.m_Background_Esc;
+        public InputActionMap Get() { return m_Wrapper.m_Background; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BackgroundActions set) { return set.Get(); }
+        public void AddCallbacks(IBackgroundActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BackgroundActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BackgroundActionsCallbackInterfaces.Add(instance);
+            @Esc.started += instance.OnEsc;
+            @Esc.performed += instance.OnEsc;
+            @Esc.canceled += instance.OnEsc;
+        }
+
+        private void UnregisterCallbacks(IBackgroundActions instance)
+        {
+            @Esc.started -= instance.OnEsc;
+            @Esc.performed -= instance.OnEsc;
+            @Esc.canceled -= instance.OnEsc;
+        }
+
+        public void RemoveCallbacks(IBackgroundActions instance)
+        {
+            if (m_Wrapper.m_BackgroundActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IBackgroundActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BackgroundActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BackgroundActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public BackgroundActions @Background => new BackgroundActions(this);
     public interface IMovementActions
     {
         void OnWalk(InputAction.CallbackContext context);
@@ -443,5 +520,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     public interface ITestActions
     {
         void OnTest(InputAction.CallbackContext context);
+    }
+    public interface IBackgroundActions
+    {
+        void OnEsc(InputAction.CallbackContext context);
     }
 }

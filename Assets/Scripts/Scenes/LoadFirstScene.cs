@@ -17,8 +17,6 @@ public class LoadFirstScene : MonoBehaviour
     private void Start()
     {
         StartCoroutine(StartSceneAsync());
-
-        //InputSistema.Instance.Input.Clicks.Up.performed += ctx => {StartCoroutine(StartSceneAsync());};
     }
 
 
