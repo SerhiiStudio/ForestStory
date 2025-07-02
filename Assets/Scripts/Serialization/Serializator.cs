@@ -7,37 +7,57 @@ using System;
 
 public static class Serializator
 {
-    private static string folderName = "Serialized Data";
+    public static string FolderName => "Serialized Data";
     private const string JSON_EXTENSION = ".json";
 
 
 
     public static void SaveToFolder<T>(T data, string fileName)
     {
-        string converted = JsonConvert.SerializeObject(data, Formatting.Indented);
-
-        string dataPath = Application.persistentDataPath;
-
-        string folderPath = Path.Combine(dataPath, folderName);
-
-        if(!Directory.Exists(folderPath))
+        try
         {
-            try
-            {
+            string converted = JsonConvert.SerializeObject(data, Formatting.Indented);
+
+            string dataPath = Application.persistentDataPath;
+
+            string folderPath = Path.Combine(dataPath, FolderName);
+
+            if(!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
-            }
-            catch(Exception ex)
+
+            string filePath = Path.Combine(folderPath, fileName + JSON_EXTENSION);
+
+            using(StreamWriter writer = new StreamWriter(filePath))
             {
-                Debug.LogError($"Error while creating a folder: {ex.Message}");
-                return;
+                writer.Write(converted);
             }
         }
 
-        string filePath = Path.Combine(folderPath, fileName + JSON_EXTENSION);
-
-        using(StreamWriter writer = new StreamWriter(filePath))
+        catch(Exception ex)
         {
-            writer.Write(converted);
+            Debug.LogError($"Error while creating a folder: {ex.Message}");
+            return;
+        }
+    }
+
+    public static T LoadFromFolder<T>(string fileName)
+    {
+        try
+        {
+            string pathToFolder = Path.Combine(Application.persistentDataPath, FolderName);
+            string path = Path.Combine(pathToFolder, fileName + JSON_EXTENSION);
+
+            using(StreamReader reader = new StreamReader(path))
+            {
+                string objectInJson = reader.ReadToEnd();
+                T obj = JsonConvert.DeserializeObject<T>(objectInJson);
+                return obj;
+            }
+        }
+        catch(Exception ex)
+        {
+            Debug.LogError($"Error while loading data: {ex.Message}");
+            return default;
         }
     }
 }
