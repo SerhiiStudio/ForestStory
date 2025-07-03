@@ -80,8 +80,8 @@ public class VolumeFromScrollbar : MonoBehaviour
 
         bool permission = Mathf.Abs(value - center) <= TOLERANCE;
 
-        if(permission) Debug.Log(Mathf.Abs(value - center)); // While testing
-        
+        // if(permission) Debug.Log(Mathf.Abs(value - center)); // While testing
+
         return permission;
     }
 
