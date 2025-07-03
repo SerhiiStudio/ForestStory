@@ -21,7 +21,7 @@ public class TestSerializeData : MonoBehaviour
 
     private void Deserialize(InputAction.CallbackContext ctx)
     {
-        var obj = Serializator.LoadFromFolder<string>("From class");
+        (var obj, bool result) = Serializator.LoadFromFolder<string>("From class");
         if(obj != null)
             Debug.Log(obj.ToString());
         else

@@ -40,7 +40,7 @@ public static class Serializator
         }
     }
 
-    public static T LoadFromFolder<T>(string fileName)
+    public static (T obj, bool result) LoadFromFolder<T>(string fileName)
     {
         try
         {
@@ -51,13 +51,13 @@ public static class Serializator
             {
                 string objectInJson = reader.ReadToEnd();
                 T obj = JsonConvert.DeserializeObject<T>(objectInJson);
-                return obj;
+                return (obj, true);
             }
         }
         catch(Exception ex)
         {
-            Debug.LogError($"Error while loading data: {ex.Message}");
-            return default;
+            Debug.LogWarning($"Error while loading data: {ex.Message}");
+            return (default, false);
         }
     }
 }
