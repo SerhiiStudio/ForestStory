@@ -8628,7 +8628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 846312315}
-  speed: 4.92
+  speed: 2.5
 --- !u!4 &846312314
 Transform:
   m_ObjectHideFlags: 0
