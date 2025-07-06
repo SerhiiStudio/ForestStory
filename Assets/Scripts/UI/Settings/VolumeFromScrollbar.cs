@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public class VolumeFromScrollbar : MonoBehaviour
+public class VolumeFromScrollbar : AbsUiInitializable
 {
     [SerializeField] private Scrollbar scrollbar;
     [SerializeField] private AudioMixer[] mixers;
+
+    [SerializeField] private GameObject container;
 
     private Coroutine coroutine;
 
@@ -27,10 +29,6 @@ public class VolumeFromScrollbar : MonoBehaviour
 
     private void OnEnable()
     {
-        StopCurrentCoroutine();
-
-        coroutine = StartCoroutine(Initialize());
-
         scrollbar?.onValueChanged.AddListener(ChangeVolume);
     }
     private void OnDisable()
@@ -38,7 +36,12 @@ public class VolumeFromScrollbar : MonoBehaviour
         scrollbar?.onValueChanged.RemoveListener(ChangeVolume);
     }
 
+    public override void Initialize()
+    {
+        StopCurrentCoroutine();
 
+        coroutine = StartCoroutine(InitializeCoroutine());
+    }
 
 
     public void ChangeVolume(float value)
@@ -54,7 +57,7 @@ public class VolumeFromScrollbar : MonoBehaviour
         Serializator.SaveToFolder<VolumeData>(volumeData, VOLUME_FILENAME);
     }
 
-    private IEnumerator Initialize()
+    private IEnumerator InitializeCoroutine()
     {
         yield return null; // Wait for mixers initialize
 
@@ -69,6 +72,8 @@ public class VolumeFromScrollbar : MonoBehaviour
         ChangeVolume(data.ScrollbarValue); // To refresh value of audio mixers
 
         coroutine = null;
+
+        container.SetActive(false);
     }
 
 
