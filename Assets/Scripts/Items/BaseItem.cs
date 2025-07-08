@@ -25,7 +25,7 @@ public class Item : MonoBehaviour
 
 	protected virtual void HandleTake()
 	{
-		TryPlayAudio(itemData.playSoundOnPickup);
+		TryPlayAudio(itemData.PlaySoundOnPickup);
 		StartAnimationCoroutine();
 		if (collectToInventory)
 			TakeToInventory();
@@ -37,7 +37,7 @@ public class Item : MonoBehaviour
 	protected void TryPlayAudio(bool play)
 	{
 		if (play)
-			EventSystem.Instance.SetAndPlayAudio(itemData.takeItemSound);
+			EventSystem.Instance.SetAndPlayAudio(itemData.TakeItemSound);
 	}
 
 	protected virtual void TakeToInventory()

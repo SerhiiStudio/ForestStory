@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f2b652685808643bb49f54d74c74e8, type: 3}
   m_Name: AppleC1D1 1
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: 8b736bf7b296819459f7f7a95c43a6f5, type: 3}
-  playSoundOnPickup: 1
-  takeItemSound: {fileID: 11400000, guid: f4e8bfd0c15b37d4198dc098ec81de53, type: 2}
-  playSoundOnUsing: 0
-  useItemSound: {fileID: 0}
-  playSoundOnRemoving: 0
-  removeItemSound: {fileID: 0}
+  <Image>k__BackingField: {fileID: 0}
+  <PlaySoundOnPickup>k__BackingField: 1
+  <TakeItemSound>k__BackingField: {fileID: 11400000, guid: f4e8bfd0c15b37d4198dc098ec81de53, type: 2}
+  <PlaySoundOnUsing>k__BackingField: 0
+  <UseItemSound>k__BackingField: {fileID: 0}
+  <PlaySoundOnRemoving>k__BackingField: 0
+  <RemoveItemSound>k__BackingField: {fileID: 0}

@@ -15,22 +15,22 @@ public class InventorySlot : MonoBehaviour
 	{
 		itemData = data;
 
-		image.sprite = itemData.image;
+		image.sprite = itemData.Image;
 		image.enabled = true;
 	}
 
 	public void UseItem(ItemData data)
 	{
-		if (data.playSoundOnUsing)
-			EventSystem.Instance.SetAndPlayAudio(itemData.useItemSound);
+		if (data.PlaySoundOnUsing)
+			EventSystem.Instance.SetAndPlayAudio(itemData.UseItemSound);
 	}
 
 	public void RemoveItem(ItemData data)
 	{
 		if (data == this.itemData)
 		{
-			if (data.playSoundOnRemoving)
-				EventSystem.Instance.SetAndPlayAudio(itemData.removeItemSound);
+			if (data.PlaySoundOnRemoving)
+				EventSystem.Instance.SetAndPlayAudio(itemData.RemoveItemSound);
 
 			image.enabled = false;
 			itemData = null;
