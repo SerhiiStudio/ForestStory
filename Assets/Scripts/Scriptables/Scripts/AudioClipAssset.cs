@@ -3,9 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Audio/AudioClipAsset")]
 public class AudioClipAsset : ScriptableObject
 {
-	public AudioType Type;
-	public AudioClip Clip;
-
+	[field: SerializeField] public AudioType Type { get; private set; }
+	[field: SerializeField] public AudioClip Clip { get; private set; }
 	public override string ToString()
 	{
 		return 

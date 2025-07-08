@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e26fc3b84682f54eb73e84f48b8add3, type: 3}
   m_Name: Blue Earth
   m_EditorClassIdentifier: 
-  Type: 5
-  Clip: {fileID: 8300000, guid: a390306c5f684694385a7c038088fd36, type: 3}
+  <Type>k__BackingField: 5
+  <Clip>k__BackingField: {fileID: 8300000, guid: a390306c5f684694385a7c038088fd36, type: 3}
