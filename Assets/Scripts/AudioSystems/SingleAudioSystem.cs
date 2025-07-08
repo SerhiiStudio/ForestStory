@@ -10,21 +10,21 @@ public class SingleAudioSystem : AudioSystemBase
 
     public override void SetAndPlay(AudioClipAsset clipAsset)
     {
-        if (CanPlay(clipAsset) && CheckAudioType(clipAsset.Type))
-        {
-            if(transition != null)
-                {
-                    var sourceTransited = transition.Transite(audioSource, clipAsset.Clip);
+        if (!CanPlay(clipAsset) || !CanHandleAudioSources() || !CheckAudioType(clipAsset.Type))
+            return;
 
-                    if (sourceTransited != null)
-                    {
-                        audioSource = sourceTransited;
-                        return;
-                    }
-                }
-            
-            SetAudio(clipAsset); // If transition or sourceTransited == null we use different way
+        if(transition != null)
+        {
+            var sourceTransited = transition.Transite(audioSource, clipAsset.Clip);
+
+            if (sourceTransited != null)
+            {
+                audioSource = sourceTransited;
+                return;
+            }
         }
+            
+        SetAudio(clipAsset); // If transition or sourceTransited == null we use different way
     }
 
 
@@ -37,12 +37,12 @@ public class SingleAudioSystem : AudioSystemBase
 
     public override void Pause(AudioType aType)
     {
-        if(CanHandlePausing())
+        if(CanHandleAudioSources())
             audioSource.Pause();
     }
     public override void Unpause(AudioType aType)
     {
-        if(CanHandlePausing())
+        if(CanHandleAudioSources())
             audioSource.UnPause();
     }
 
@@ -50,5 +50,5 @@ public class SingleAudioSystem : AudioSystemBase
     protected override bool CanPlay(AudioClipAsset clipAsset) =>
         audioSource != null && clipAsset?.Clip != null;
 
-    protected override bool CanHandlePausing() => audioSource != null;
+    protected override bool CanHandleAudioSources() => audioSource != null;
 }

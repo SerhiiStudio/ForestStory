@@ -13,7 +13,7 @@ public abstract class AudioSystemBase : MonoBehaviour
     public abstract void Unpause(AudioType aType);
 
     protected abstract bool CanPlay(AudioClipAsset clipAsset);
-    protected abstract bool CanHandlePausing();
+    protected abstract bool CanHandleAudioSources();
 
     protected bool CheckAudioType(AudioType type) =>
         audioType == type;

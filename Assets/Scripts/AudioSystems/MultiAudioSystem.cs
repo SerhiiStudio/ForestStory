@@ -12,54 +12,59 @@ public class MultiAudioSystem : AudioSystemBase
 
     public override void SetAndPlay(AudioClipAsset clipAsset)
     {
-         if (CanPlay(clipAsset) && CheckAudioType(clipAsset.Type))
-         {
-            var source = DetermiteFreeSource(clipAsset);
-            SetSourcePlay(source, clipAsset.Clip);
-         }
+         if (!CanPlay(clipAsset) || !CanHandleAudioSources() || !CheckAudioType(clipAsset.Type))
+            return;
+         
+         var source = DetermineFreeSource(clipAsset);
+         SetSourcePlay(source, clipAsset.Clip);
     }
 
     public override void Pause(AudioType aType)
     {
-        if(CanHandlePausing())
-        {
-            foreach(var srs in audioSources)
-            {
-                srs.Pause();
-            }
-        }
+        if(!CanHandleAudioSources())
+            return;
+
+        foreach(var srs in audioSources)
+            srs.Pause();
     }
     public override void Unpause(AudioType aType)
     {
-        if(CanHandlePausing())
-        {
-            foreach(var srs in audioSources)
-            {
-                srs.UnPause();
-            }
-        }
+        if(!CanHandleAudioSources())
+            return;
+
+        foreach(var srs in audioSources)
+            srs.UnPause();
     }
 
-    protected AudioSource DetermiteFreeSource(AudioClipAsset clipAsset)
+    protected AudioSource DetermineFreeSource(AudioClipAsset clipAsset)
     {
          AudioSource source = null;
 
-         foreach(var aSource in audioSources)
+         foreach(var src in audioSources) 
          {
-            if (aSource.isPlaying)
+            if (src.isPlaying)
                continue;
 
-            source = aSource;
+            source = src;
             break;
          }
 
          if (source == null)
          {
             source = audioSourceContainer.AddComponent<AudioSource>();
+            SetOutput(source);
             audioSources.Add(source);
          }
 
          return source;
+    }
+
+    protected void SetOutput(AudioSource source)
+    {
+        if(!CanHandleAudioSources() || audioSources.Count == 0)
+            return;
+
+        source.outputAudioMixerGroup = audioSources[0].outputAudioMixerGroup; // Get the first source
     }
 
     protected void SetSourcePlay(AudioSource source, AudioClip clip)
@@ -69,19 +74,8 @@ public class MultiAudioSystem : AudioSystemBase
     }
 
     protected override bool CanPlay(AudioClipAsset clipAsset) =>
-        audioSources.All(a => a != null) && clipAsset?.Clip != null;
+        clipAsset?.Clip != null;
 
-    protected override bool CanHandlePausing()
-    {
-        if(audioSources != null)
-        {
-            foreach(var srs in audioSources)
-            {
-                if (srs == null)
-                    return false;
-            }
-            return true;
-        }
-        return false;
-    }
+    protected override bool CanHandleAudioSources() =>
+        audioSources != null && audioSources.All(a => a != null);
 }
