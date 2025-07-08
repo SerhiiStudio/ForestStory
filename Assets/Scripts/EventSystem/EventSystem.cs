@@ -6,7 +6,7 @@ using UnityEngine.Localization.Components;
 
 public class EventSystem : MonoBehaviour
 {
-	public static EventSystem Instance;
+	public static EventSystem Instance { get; private set; }
 
 	private void Awake()
 	{
